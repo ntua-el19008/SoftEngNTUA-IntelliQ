@@ -1,9 +1,6 @@
 # Software Engineering Project 2022-2023
 
 Group: softeng2022-68
-Members: elYYNNN, elYYNNN, ... (replace YYNNN as needed. PLEASE keep this up-to-date)
-  
-  
-  
-(your README.md content goes here)
+
+Members: elYYNNN (Ioannis Dorkofikis), elYYNNN (Adam Kapetis), elYYNNN (Myrsini Kellari), el19008 (Ioannis Protogeros), elYYNNN (Despoina Vidali), elYYNNN (Panagiotis Xanthopoulos)
 
