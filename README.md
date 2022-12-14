@@ -2,5 +2,5 @@
 
 Group: softeng2022-68
 
-Members: elYYNNN (Ioannis Dorkofikis), elYYNNN (Adam Kapetis), elYYNNN (Myrsini Kellari), el19008 (Ioannis Protogeros), elYYNNN (Despoina Vidali), elYYNNN (Panagiotis Xanthopoulos)
+Members: el19079 (Ioannis Dorkofikis), el19034 (Adam Kapetis), el19082 (Myrsini Kellari), el19008 (Ioannis Protogeros), el19111 (Despoina Vidali), el19084 (Panagiotis Xanthopoulos)
 
