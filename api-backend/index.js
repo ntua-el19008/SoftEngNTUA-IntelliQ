@@ -1,24 +1,33 @@
-const express =require('express')
+const express = require('express');
+const path = require('path');
 const app = express();
 const port = 8000
 const bodyparser = require('body-parser')
-const api =require('./routes/intelliq_api')
+const api = require('./routes/intelliq_api')
 
-//middleware
-app.use('/intelliq_api', api )
-app.use(bodyparser.json())
+// Middlewares
+app.use(bodyparser.json());
+app.use('/intelliq_api', api );
+app.use(express.static(path.join(__dirname, 'frontend')));
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`);
-});
-
-app.get('/',(req,res) => {
-    res.send("hello world")
+// Set up nunjucks templating engine
+const nunjucks = require('nunjucks');	
+nunjucks.configure(path.join(__dirname, '..', 'frontend', 'templates'), {
+	autoescape: false,
+	express: app
 })
 
-app.post('/checkParser', (req,res) => {
-    console.log("using body parser: ", req.body.value)
-    res.send({"body":req.body})
+app.set('view engine', 'html');
+
+// Initialize port for node application to run
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+});
+
+// Get request to root
+app.get('/', (req, res) => {
+    res.render('index', { title: 'IntelliQ' });
 })
 
 var mysql = require('mysql');
