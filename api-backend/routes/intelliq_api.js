@@ -1,8 +1,7 @@
-const { Router } = require('express');
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
 
-router.use("/admin", require('./admin.js'));
+router.use("/admin", require('../admin/admin.js'));
 
 router
     .route("/questionnaire/:questionnaireID")
