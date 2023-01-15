@@ -68,7 +68,7 @@ router.get("/:questionnaireID", async (req, res) => {
         else {
             // Send result
             res.status(200).send(result);
-            console.log("Questionnaire query successful!");
+            console.log("Questionnaire query successful! (JSON)");
         }
 
     } catch (err) {

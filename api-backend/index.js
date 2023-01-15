@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 8000;
+const port = 9103;
 const bodyparser = require('body-parser')
 const api = require('./routes/intelliq_api')
+
+const baseurl = '/intelliQ/api';
 
 // Middlewares
 app.use(bodyparser.json());
@@ -31,9 +33,11 @@ app.get('/', (req, res) => {
 })
 
 const Questionnaire = require('./routes/Questionnaire');
+const Question = require('./routes/Question');
 
 //Rest API endpoints
-app.use("/questionnaire", Questionnaire)
+app.use(baseurl + "/questionnaire", Questionnaire);
+app.use(baseurl + "/question", Question);
 
 
 /* var mysql = require('mysql');
