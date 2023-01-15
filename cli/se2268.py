@@ -1,40 +1,77 @@
 import argparse
 import requests
 import sys
+#import pandas
 
-SCOPES = ["healthcheck", "resetall", "questionnaire_upd", "resetq", "questionnaire",\
-    "question", "doanswer", "getsessionanswers", "getquestionanswers", "admin"]
+#SCOPES: "healthcheck", "resetall", "questionnaire_upd", "resetq", "questionnaire",
+#   "question", "doanswer", "getsessionanswers", "getquestionanswers", "admin"
 
-#def se2268():
-#    return 0
-    #res = requests.get('https://localhost:9103/intelliq_api/admin/healthcheck')
+def print_format(res,args):
+    if args.format[0]=="json":
+        #fix json print
+        print(res)
+    else:
+        #fix csv print
+        print(res)
+
+#otan h requests.get den briskei th selida petaei exception to opoio isws prepei na kanoume catch.
 
 def healthcheck(args):
+    res = requests.get('https://localhost:8000/intelliq_api/admin/healthcheck' +'?format='+args.format[0])
+    print(res.status_code)
+    print_format(res,args)
     return 0
-
+        
 def resetall(args):
+    res = requests.post('https://localhost:8000/intelliq_api/admin/resetall' +'?format='+args.format[0])
+    print(res.status_code)
+    print_format(res,args)
     return 0
   
 def questionnaire_upd(args):
+    file = {'file': open(args.source, 'rb')}
+    res = requests.post('https://localhost:8000/intelliq_api/admin/questionnaire_upd', \
+                        +'?format='+args.format[0], file=file)
+    print_format(res,args)
     return 0
 
 def resetq(args):
+    res = requests.post('https://localhost:8000/intelliq_api/admin/resetq/' + ':' + \
+                        args.questionnaire_id +'?format='+args.format[0])
+    print_format(res,args)
     return 0
 
 def questionnaire(args):
+    res = requests.get('https://localhost:8000/intelliq_api/questionnaire/' + ':' + \
+                       args.questionnaire_id +'?format='+args.format[0])
+    print_format(res,args)
     return 0
 
 def question(args):
+    res = requests.get('https://localhost:8000/intelliq_api/question/' + ':' + \
+                       args.questionnaire_id + '/:' + args.question_id +'?format='+args.format[0])
+    print_format(res,args)
     return 0
   
 def doanswer(args):
-    print(args)
+    res = requests.post('https://localhost:8000/intelliq_api/doanswer/' + ':' + \
+                       args.questionnaire_id + '/:' + args.question_id + '/:' + \
+                       args.session_id + '/:' + args.option_id +'?format='+args.format[0])
+    print_format(res,args)
     return 0
 
 def getsessionanswers(args):
+    res = requests.get('https://localhost:8000/intelliq_api/doanswer/' + ':' + \
+                       args.questionnaire_id + '/:' + \
+                       args.session_id + '?format='+args.format[0])
+    print_format(res,args)
     return 0
 
 def getquestionanswers(args):
+    res = requests.get('https://localhost:8000/intelliq_api/doanswer/' + ':' + \
+                       args.questionnaire_id + '/:' + \
+                       args.question_id + '?format='+args.format[0])
+    print_format(res,args)
     return 0
 
 if __name__ == "__main__":
@@ -100,7 +137,7 @@ if __name__ == "__main__":
     getquestionanswers_parser.add_argument("--questionnaire_id", nargs=1, type=str, help="Questionnaire ID", required=True)
     getquestionanswers_parser.add_argument("--question_id", nargs=1, type=str, help="Question ID", required=True)
     getquestionanswers_parser.set_defaults(func=getquestionanswers)
-    
+
     parsed_args = parser.parse_args()
 
     if hasattr(parsed_args, 'func'):
