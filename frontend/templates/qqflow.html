@@ -1,0 +1,14 @@
+{% extends "global_layout.html" %}
+
+{% block title %}
+Flow information
+{% endblock title %}
+
+{% block content %}
+<h1 style="font-size: 1.5em;">Specify the flow of the questionnaire</h1>
+<div id="questionsContainer"></div><br>
+<button id="submitButton" onclick="submitQnext()">Submit</button>
+<br />
+<div id="output"></div>
+<script src="./qflow.js"></script>
+{% endblock content %}

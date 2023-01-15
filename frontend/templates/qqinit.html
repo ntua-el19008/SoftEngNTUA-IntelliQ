@@ -1,0 +1,28 @@
+{% extends "global_layout.html" %}
+
+{% block title %}
+Initial Data
+{% endblock title %}
+
+{% block content %}
+<form id="questionnaireContainer">
+    <div id="questionnaire">
+        <h1 style="font-size: 1.5em;">Insert the general data for the questionnaire</h1>
+        <label style="font-size: 1.2em;">Questionnaire ID:</label><br />
+        <input type="text" id="qqid" /><br /><br />
+        <label style="font-size: 1.2em;">Questionnaire Title:</label><br />
+        <input type="text" id="qqtitle" /><br /><br />
+        <input type="button" value="+" onclick="addKeyword()" />
+        <div id="keywordContainer">
+            <div id="keyword1">
+                <label style="font-size: 1.2em;">Keywords:</label><br />
+                <input type="text" class="keyword" />
+            </div>
+        </div>
+    </div>
+</form>
+<br /><button onclick="parseQQdata()">Submit</button>
+<br />
+<div id="output"></div>
+<script src="./qinit.js"></script>
+{% endblock content %}
