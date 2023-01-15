@@ -36,40 +36,40 @@ def questionnaire_upd(args):
     return 0
 
 def resetq(args):
-    res = requests.post('https://localhost:8000/intelliq_api/admin/resetq/' + ':' + \
+    res = requests.post('https://localhost:8000/intelliq_api/admin/resetq/' + \
                         args.questionnaire_id +'?format='+args.format[0])
     print_format(res,args)
     return 0
 
 def questionnaire(args):
-    res = requests.get('https://localhost:8000/intelliq_api/questionnaire/' + ':' + \
+    res = requests.get('https://localhost:8000/intelliq_api/questionnaire/' + \
                        args.questionnaire_id +'?format='+args.format[0])
     print_format(res,args)
     return 0
 
 def question(args):
-    res = requests.get('https://localhost:8000/intelliq_api/question/' + ':' + \
-                       args.questionnaire_id + '/:' + args.question_id +'?format='+args.format[0])
+    res = requests.get('https://localhost:8000/intelliq_api/question/'  + \
+                       args.questionnaire_id + '/' + args.question_id +'?format='+args.format[0])
     print_format(res,args)
     return 0
   
 def doanswer(args):
-    res = requests.post('https://localhost:8000/intelliq_api/doanswer/' + ':' + \
-                       args.questionnaire_id + '/:' + args.question_id + '/:' + \
-                       args.session_id + '/:' + args.option_id +'?format='+args.format[0])
+    res = requests.post('https://localhost:8000/intelliq_api/doanswer/'  + \
+                       args.questionnaire_id + '/' + args.question_id + '/' + \
+                       args.session_id + '/' + args.option_id +'?format='+args.format[0])
     print_format(res,args)
     return 0
 
 def getsessionanswers(args):
-    res = requests.get('https://localhost:8000/intelliq_api/doanswer/' + ':' + \
-                       args.questionnaire_id + '/:' + \
+    res = requests.get('https://localhost:8000/intelliq_api/doanswer/' + \
+                       args.questionnaire_id + '/' + \
                        args.session_id + '?format='+args.format[0])
     print_format(res,args)
     return 0
 
 def getquestionanswers(args):
-    res = requests.get('https://localhost:8000/intelliq_api/doanswer/' + ':' + \
-                       args.questionnaire_id + '/:' + \
+    res = requests.get('https://localhost:8000/intelliq_api/doanswer/'  + \
+                       args.questionnaire_id + '/' + \
                        args.question_id + '?format='+args.format[0])
     print_format(res,args)
     return 0
