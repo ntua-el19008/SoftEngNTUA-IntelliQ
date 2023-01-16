@@ -5,5 +5,36 @@
 {% endblock title %}
 
 {% block content %}
-Bonjour!!!!
+<div class="container">
+    <br><br>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body" style="background-color: lightgrey;">
+                    <h4 class="card-title">Create Questionnaire</h4>
+                    <p class="card-text">Create your own questionnaires and customize them to your needs.</p>
+                    <a href="/create" class="btn btn-primary">Create</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body" style="background-color: lightgrey;">
+                    <h4 class="card-title">Answer Questionnaires</h4>
+                    <p class="card-text">Answer questionnaires created by others and see your results.</p>
+                    <a href="/answer" class="btn btn-primary">Answer</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body" style="background-color: lightgrey;">
+                    <h4 class="card-title">Questionnaire Statistics</h4>
+                    <p class="card-text">See statistics and data on questionnaires you've created or answered.</p>
+                    <a href="/statistics" class="btn btn-primary">Statistics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
