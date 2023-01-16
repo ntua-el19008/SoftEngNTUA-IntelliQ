@@ -39,5 +39,5 @@ function parseQQdata() {
 
     var jsonData = JSON.stringify(data);
     sessionStorage.setItem("qqgenData", jsonData);
-    window.location.href = "./qcreation.html";
+    window.location.href = "./qqcreation.html";
 }
