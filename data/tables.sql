@@ -1,6 +1,6 @@
-DROP SCHEMA IF EXISTS TouLou;
-CREATE SCHEMA TouLou;
-USE TouLou;
+DROP SCHEMA IF EXISTS toulou;
+CREATE SCHEMA toulou;
+USE toulou;
 
 DROP TABLE IF EXISTS Questionnaire;
 CREATE TABLE Questionnaire (
