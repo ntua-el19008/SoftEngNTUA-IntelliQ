@@ -24,7 +24,7 @@ function addQuestion() {
                 </form>
                 <label style="font-size: 1.2em;">Type of question</label><br />
                 <form id="type">
-                    <label for="profile">PRofile</label>
+                    <label for="profile">Profile</label>
                     <input type="radio" id="profile" name="type" value="profile">
                     <br>
                     <label for="question">Question</label>
@@ -147,5 +147,5 @@ function parseQuestions() {
     }
     var json = JSON.stringify(questionData);
     sessionStorage.setItem("questionData", json);
-    window.location.href = "./qflow.html";
+    window.location.href = "./qqflow.html";
 }

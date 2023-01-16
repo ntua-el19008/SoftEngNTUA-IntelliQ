@@ -1,3 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>
+        Flow information
+    </title>
+    <link rel="stylesheet" href="./static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./static/bootstrap/css/styles.css">
+</head>
+
+<!--  {% include "navbar.html" %} -->
+
+<body>
+    <script src="./qqflow.js"></script>
+    <!-- all other templates are to be rendered "within" the following block -->
+    <h1 style="font-size: 1.5em;">Specify the flow of the questionnaire</h1>
+    <div id="questionsContainer"></div><br>
+    <script>
+        //call after page loaded
+        window.onload = displayQuestions(); 
+    </script>
+    <button id="submitButton" onclick="submitQnext()">Submit</button>
+    <br />
+    <div id="output"></div>
+    <script src="./static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+
 {% extends "global_layout.html" %}
 
 {% block title %}
@@ -5,10 +38,15 @@ Flow information
 {% endblock title %}
 
 {% block content %}
+<script src="./qqflow.js"></script>
+<!-- all other templates are to be rendered "within" the following block -->
 <h1 style="font-size: 1.5em;">Specify the flow of the questionnaire</h1>
 <div id="questionsContainer"></div><br>
+<script>
+    //call after page loaded
+    window.onload = displayQuestions(); 
+</script>
 <button id="submitButton" onclick="submitQnext()">Submit</button>
 <br />
 <div id="output"></div>
-<script src="./qflow.js"></script>
 {% endblock content %}

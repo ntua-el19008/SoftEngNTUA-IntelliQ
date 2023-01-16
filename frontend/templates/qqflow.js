@@ -2,9 +2,6 @@ var questionData = JSON.parse(sessionStorage.getItem('questionData'));
 
 var qqgenData = JSON.parse(sessionStorage.getItem('qqgenData'));
 
-console.log(questionData);
-console.log(qqgenData);
-
 function createQnextSelect(questionIndex) {
     var qid_arr = [];
 
@@ -12,8 +9,8 @@ function createQnextSelect(questionIndex) {
     select.name = "nextqID";
 
     var option = document.createElement("option");
-    option.value = "NULL";
-    option.innerHTML = "NULL";
+    option.value = "NULLQ";
+    option.innerHTML = "NULLQ";
     select.appendChild(option);
 
     for (var i = 0; i < questionData.length; i++) {
@@ -62,23 +59,37 @@ function displayQuestions() {
 function parseAll() {
     qqgenData.questions = [];
 
+    var firstopt = 1;
+
     question = null;
     for (var i = 0; i < questionData.length; i++) {
         if (questionData[i].qtext === undefined) {
             //option
-            question.options = [];
-            question.options.push(questionData[i]);
+
+            delete questionData[i].qID;
+
+            if (firstopt === 1) {
+                question.options = [];
+                question.options.push(questionData[i]);
+                firstopt = 0;
+            } else {
+                question.options.push(questionData[i]);
+            }
         }
         else {
             //question
 
+            firstopt = 1;
             qqgenData.questions.push(question);
             question = questionData[i];
         }
     }
     qqgenData.questions.push(question);
     qqgenData.questions.shift();
-    console.log(qqgenData);
+
+
+    var json = JSON.stringify(qqgenData);
+    document.getElementById("output").innerHTML = json;
 }
 
 function submitQnext() {
