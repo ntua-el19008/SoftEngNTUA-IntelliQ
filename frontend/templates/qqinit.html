@@ -5,6 +5,33 @@ Initial Data
 {% endblock title %}
 
 {% block content %}
+<div id="error-box" style="
+        display: none;
+        background-color: #ff0000; /* pale red */
+        color: white;
+        position: fixed;
+        bottom: 0%;
+        left: 40%;
+        width: 20%;
+        height: 90px;
+        z-index: 1;
+        text-align: center;
+        padding: 10px 20px;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;">
+    <div class="error-content">
+        Error: You must specify the Questionnaire ID and Title!
+        <span class="error-closebtn" style="color: white;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            padding: 10px;" onclick="document.getElementById('error-box').style.display='none';">&times;</span>
+    </div>
+</div>
 <form id="questionnaireContainer">
     <div id="questionnaire">
         <h1 style="font-size: 1.5em;">Insert the general data for the questionnaire</h1>
@@ -24,5 +51,62 @@ Initial Data
 <br /><button onclick="parseQQdata()">Submit</button>
 <br />
 <div id="output"></div>
-<script src="./qqinit.js" type="application/json""></script>
+<script>
+    function checkForError() {
+        var qqid = document.getElementById("qqid").value;
+        var qqtitle = document.getElementById("qqtitle").value;
+        if (qqid === "" || qqtitle === "") {
+            document.getElementById("error-box").style.display = "flex";
+            return true;
+        }
+        return false;
+    }
+
+    var keywordCount = 1;
+
+    function addKeyword() {
+        keywordCount++;
+
+        var newKeyword = document.createElement("div");
+        newKeyword.innerHTML = `
+			<div id="keyword${keywordCount}">
+                <br /><input type="text" class="keyword" /><br />
+                <input type="button" value="Remove Keyword" onclick="removeKeyword(${keywordCount})" />
+			</div>
+			`;
+        var keywordContainer = document.getElementById("keywordContainer");
+        keywordContainer.insertBefore(newKeyword, keywordContainer.lastChild);
+    }
+
+    function removeKeyword(keywordIndex) {
+        var keywordDiv = document.getElementById(`keyword${keywordIndex}`);
+        keywordDiv.parentNode.removeChild(keywordDiv);
+
+        // adjust the questionCount
+        keywordCount--;
+    }
+
+    function parseQQdata() {
+        if (checkForError()) return;
+        var questionnaireID = document.getElementById("qqid").value;
+        var questionnaireTitle = document.getElementById("qqtitle").value;
+        var keywords = [];
+        var keywordElements = document.getElementsByClassName("keyword");
+        for (var i = 0; i < keywordElements.length; i++) {
+            if (keywordElements[i].value !== "") {
+                keywords.push(keywordElements[i].value);
+            }
+        }
+
+        var data = {
+            "questionnaireID": questionnaireID,
+            "questionnaireTitle": questionnaireTitle,
+            "keywords": keywords
+        };
+
+        var jsonData = JSON.stringify(data);
+        sessionStorage.setItem("qqgenData", jsonData);
+        window.location.href = "/createqs";
+    }
+</script>
 {% endblock content %}

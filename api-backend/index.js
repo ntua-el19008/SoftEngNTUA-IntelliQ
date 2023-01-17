@@ -32,8 +32,16 @@ app.get('/', (req, res) => {
     res.render('index', { title: 'IntelliQ' });
 })
 
-app.get('/create', (req, res) => {
+app.get('/createinit', (req, res) => {
     res.render('qqinit');
+})
+
+app.get('/createqs', (req, res) => {
+    res.render('qqcreation');
+})
+
+app.get('/createflow', (req, res) => {
+    res.render('qqflow');
 })
 
 app.get('/statistics', (req, res) => {
