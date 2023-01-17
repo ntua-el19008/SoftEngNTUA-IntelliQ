@@ -22,7 +22,7 @@ Questions & Options
         font-weight: bold;">
 	<div class="error-content">
 		Error: You must fill all the fields!
-		<span class="error-closebtn" style="color: white;
+		<span class="error-closebtn" style="color: rgb(0, 0, 0);
             font-size: 28px;
             font-weight: bold;
             position: absolute;
@@ -35,11 +35,11 @@ Questions & Options
 <form id="questionContainer" style="text-align: center;">
 	<div id="question1">
 		<h1 style="font-size: 1.7em;">Question 1</h1>
-		<label style="font-size: 1.2em;">Question ID</label><br />
-		<input type="text" name="qid" /><br />
-		<label style="font-size: 1.2em;">Question text</label><br />
-		<input type="text" name="qtext" /><br /> <br />
-		<label style="font-size: 1.2em;">Is the question mandatory?</label><br />
+		<label style="font-size: 1.2em;">Question ID</label><br>
+		<input type="text" name="qid" placeholder="Max length 10 characters" /><br>
+		<label style="font-size: 1.2em;">Question text</label><br>
+		<input type="text" name="qtext" placeholder="Max length 255 characters" /><br> <br>
+		<label style="font-size: 1.2em;">Is the question mandatory?</label><br>
 		<form id="type">
 			<label for="TRUE">TRUE</label>
 			<input type="radio" id="TRUE" name="mandatory" value="TRUE">
@@ -48,7 +48,7 @@ Questions & Options
 			<input type="radio" id="FALSE" name="mandatory" value="FALSE">
 			<br><br>
 		</form>
-		<label style="font-size: 1.2em;">Type of question</label><br />
+		<label style="font-size: 1.2em;">Type of question</label><br>
 		<form id="type">
 			<label for="profile">Profile</label>
 			<input type="radio" id="profile" name="type" value="profile">
@@ -61,21 +61,21 @@ Questions & Options
 			style="margin: 0 auto; display: block;" /><br>
 		<div id="optionsContainer1">
 			<div id="option1">
-				<label style="font-size: 1.2em;">Option ID</label><br />
-				<input type="text" name="opt" /><br />
-				<label style="font-size: 1.2em;">Option Text</label><br />
-				<input type="text" name="opttxt" /><br />
+				<label style="font-size: 1.2em;">Option ID</label><br>
+				<input type="text" name="opt" placeholder="Max length 10 characters" /><br>
+				<label style="font-size: 1.2em;">Option Text</label><br>
+				<input type="text" name="opttxt" placeholder="Max length 255 characters" /><br>
 			</div>
 		</div>
-		<br />
+		<br>
 	</div>
 </form>
-<br />
+<br>
 <button class="btn btn-danger" onclick="addQuestion()" style="margin: 0 auto; display: block;">Add new
-	question</button><br />
+	question</button><br>
 <br><br><button class="btn btn-danger" onclick="parseQuestions()"
-	style="margin: 0 auto; display: block; font-size: 28px; font-weight: bold;">Submit</button><br />
-<br />
+	style="margin: 0 auto; display: block; font-size: 28px; font-weight: bold;">Submit</button><br>
+<br>
 <div id="output"></div>
 <script src="../templates/qqcreation.js"></script>
 {% endblock content %}

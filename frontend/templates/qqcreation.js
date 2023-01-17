@@ -12,9 +12,9 @@ function addQuestion() {
             <input type="button" value="Remove Question" class="btn btn-danger" onclick="removeQuestion(${questionCount})"
 			style="margin: 0 auto; display: block;" /><br>
             <label style="font-size: 1.2em;">Question ID</label><br>
-            <input type="text" name="qid" /><br>
+            <input type="text" name="qid" placeholder="Max length 10 characters"/><br>
             <label style="font-size: 1.2em;">Question text</label><br>
-            <input type="text" name="qtext" /><br> <br>
+            <input type="text" name="qtext" placeholder="Max length 255 characters"/><br> <br>
             <label style="font-size: 1.2em;">Is the question mandatory?</label><br>
             <form id="type">
                 <label for="TRUE">TRUE</label>
@@ -38,9 +38,9 @@ function addQuestion() {
             <div id="optionsContainer${questionCount}">
             <div id="option1">
                 <label style="font-size: 1.2em;">Option ID</label><br>
-                <input type="text" name="opt" /><br>
+                <input type="text" name="opt" placeholder="Max length 10 characters"/><br>
                 <label style="font-size: 1.2em;">Option Text</label><br>
-                <input type="text" name="opttxt" /><br>
+                <input type="text" name="opttxt" placeholder="Max length 255 characters"/><br>
             </div><br>
             </div>
         </div>
@@ -64,9 +64,9 @@ function addOption(questionNum) {
     newOption.innerHTML = `
         <div id="option${optionCount[questionNum]}" class="option" idx="${optionCount[questionNum]}">
             <br><label style="font-size: 1.2em;">Option ID</label><br>
-            <input type="text" name="opt" /><br>
+            <input type="text" name="opt" placeholder="Max length 10 characters"/><br>
             <label style="font-size: 1.2em;">Option Text</label><br>
-            <input type="text" name="opttxt" /><br><br>
+            <input type="text" name="opttxt" placeholder="Max length 255 characters"/><br><br>
             <input type="button" value="Remove Option" class="btn btn-danger" onclick="removeOption(this, ${questionNum})"
 			style="margin: 0 auto; display: block;" />
         </div>

@@ -32,10 +32,24 @@ function removeKeyword(keywordIndex) {
     keywordCount--;
 }
 
+function checkdomain(str) {
+    if (str === "") return false;
+    if (!(str.match(/^@[a-zA-Z][a-zA-Z0-9]*([.-][a-zA-Z0-9]+)*\.[a-zA-Z0-9]*[a-zA-Z]$/) && str.length <= 63)) {
+        document.getElementById("error-box").style.display = "flex";
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function parseQQdata() {
     if (checkForError()) return;
     var questionnaireID = document.getElementById("qqid").value;
     var questionnaireTitle = document.getElementById("qqtitle").value;
+
+    var qqmask = document.getElementById("qqmask").value;
+    if (checkdomain(qqmask)) return;
+
     var keywords = [];
     var keywordElements = document.getElementsByClassName("keyword");
     for (var i = 0; i < keywordElements.length; i++) {
@@ -47,6 +61,7 @@ function parseQQdata() {
     var data = {
         "questionnaireID": questionnaireID,
         "questionnaireTitle": questionnaireTitle,
+        "qqmask": qqmask,
         "keywords": keywords
     };
 

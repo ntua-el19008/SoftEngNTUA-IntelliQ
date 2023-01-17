@@ -49,7 +49,7 @@ function displayQuestions() {
             var questionDiv = document.createElement("div");
             var questionTitle = document.createElement("h1");
             questionTitle.style = "font-size: 1.2em;";
-            questionTitle.innerHTML = "<br>Question " + (qcount) + " (" + questionData[i].qID + ")" + "<br />" + questionData[i].qtext;
+            questionTitle.innerHTML = "<br>Question " + (qcount) + " (" + questionData[i].qID + ")" + "<br>" + questionData[i].qtext;
             questionDiv.appendChild(questionTitle);
             document.getElementById("questionsContainer").appendChild(questionDiv);
             qcount++;
@@ -91,7 +91,24 @@ function parseAll() {
 
 
     var json = JSON.stringify(qqgenData);
-    document.getElementById("output").innerHTML = json;
+    const formData = new FormData();
+    formData.append("jsonFile", new Blob([json], { type: "application/json" }), "questionnaire.json");
+
+    fetch("/intelliq_api/admin/questionnaire_upd", {
+        method: "POST",
+        body: formData
+    }).then((response) => {
+        if (response.ok) {
+            console.log("File uploaded successfully");
+        } else {
+            console.log("Error uploading file");
+        }
+    });
+
+    // sessionStorage.removeItem("qqgenData");
+    // sessionStorage.removeItem("questionData");
+
+    // window.location.href = "/";
 }
 
 function submitQnext() {
