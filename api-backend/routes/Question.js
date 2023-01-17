@@ -21,7 +21,7 @@ router.get("/:questionnaireID/:questionID", async (req, res) => {
         const { questionnaireID, questionID } = req.params;      
         // Get questionnaire id, title
         const question_query = 
-        `SELECT QID as qID, QQID AS questionnaireID, Qtext AS questionnaireTitle, Mandatory AS required, Personal AS type 
+        `SELECT QID as qID, QQID AS questionnaireID, Qtext AS qtext, Mandatory AS required, Personal AS type 
         FROM Question 
         WHERE QQID = '${questionnaireID}' AND QID = '${questionID}';`;
 
@@ -57,7 +57,7 @@ router.get("/:questionnaireID/:questionID", async (req, res) => {
         // Create result JSON object
         const result = {
             "questionnaireID": question_result[0].questionnaireID,
-            "qID": question_result[0].questionnaireTitle,
+            "qID": question_result[0].qID,
             "qtext": question_result[0].qtext,
             "required": question_result[0].required,
             "type": question_result[0].type,

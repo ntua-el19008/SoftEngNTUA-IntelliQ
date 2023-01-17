@@ -5,24 +5,24 @@ Fetch Statistics
 {% endblock title %}
 
 {% block content %}
-
-<form id="statisticsForm">
+<br>
+<form id="statisticsForm" style="text-align: center;">
     <label for="questionnaireID">Enter Questionnaire ID:</label>
-    <input type="text" id="questionnaireID" name="questionnaireID" required>
-    <br>
-    <label for="questionID">Enter Question ID:</label>
-    <input type="text" id="questionID" name="questionID" required>
-    <br>
+    <input type="text" id="questionnaireID" name="questionnaireID" required onchange="loadQuestionList()">
+    <br><br>
+    <label for="questionID">Choose Question:</label>
+    <select id="questionID" name="questionID" required>
+        <option value="" disabled selected>Enter a valid questionnaire ID and the available questions will show here</option>
+    </select>
+    <br><br>
 </form>
 
-<button class="btn btn-danger" onclick="submitForm()">Fetch Statistics</button><br />
+<button class="btn btn-danger" onclick="submitForm()" style="margin: 0 auto; display: block;">Fetch Statistics</button><br />
 
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<div id="chartContainer" style="height: 370px; width: 80%; margin: 0 auto;"></div>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-<script src="../templates/statistics.js">
-   
-</script>
+<script src="../templates/statistics.js"></script>
 
 {% endblock content %}
