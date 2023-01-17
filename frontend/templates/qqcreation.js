@@ -7,42 +7,42 @@ function addQuestion() {
 
     var newQuestion = document.createElement("div");
     newQuestion.innerHTML = `
-			<div id="question${questionCount}">
-				<h1 style="font-size: 1.5em;">Question ${questionCount}</h1>
-				<label style="font-size: 1.2em;">Question ID</label><br />
-                <input type="text" name="qid" /><br />
-                <label style="font-size: 1.2em;">Question text</label><br />
-                <input type="text" name="qtext" /><br /> <br />
-                <label style="font-size: 1.2em;">Is the question mandatory?</label><br />
-                <form id="type">
-                    <label for="TRUE">TRUE</label>
-                    <input type="radio" id="TRUE" name="mandatory" value="TRUE">
-                    <br>
-                    <label for="FALSE">FALSE</label>
-                    <input type="radio" id="FALSE" name="mandatory" value="FALSE">
-                    <br><br>
-                </form>
-                <label style="font-size: 1.2em;">Type of question</label><br />
-                <form id="type">
-                    <label for="profile">Profile</label>
-                    <input type="radio" id="profile" name="type" value="profile">
-                    <br>
-                    <label for="question">Question</label>
-                    <input type="radio" id="question" name="type" value="question">
-                    <br><br>
-                </form>
-                <input type="button" value="Remove Question" onclick="removeQuestion(${questionCount})" /><br /><br />
-                <input type="button" value="+" onclick="addOption(${questionCount})" /><br />
-				<div id="optionsContainer${questionCount}">
-				<div id="option1">
-                    <label style="font-size: 1.2em;">Option ID</label><br />
-                    <input type="text" name="opt" /><br />
-                    <label style="font-size: 1.2em;">Option Text</label><br />
-                    <input type="text" name="opttxt" /><br />
-				</div><br />
-				</div>
-			</div>
-			`;
+        <div id="question${questionCount}">
+            <h1 style="font-size: 1.5em;">Question ${questionCount}</h1>
+            <label style="font-size: 1.2em;">Question ID</label><br />
+            <input type="text" name="qid" /><br />
+            <label style="font-size: 1.2em;">Question text</label><br />
+            <input type="text" name="qtext" /><br /> <br />
+            <label style="font-size: 1.2em;">Is the question mandatory?</label><br />
+            <form id="type">
+                <label for="TRUE">TRUE</label>
+                <input type="radio" id="TRUE" name="mandatory" value="TRUE">
+                <br>
+                <label for="FALSE">FALSE</label>
+                <input type="radio" id="FALSE" name="mandatory" value="FALSE">
+                <br><br>
+            </form>
+            <label style="font-size: 1.2em;">Type of question</label><br />
+            <form id="type">
+                <label for="profile">Profile</label>
+                <input type="radio" id="profile" name="type" value="profile">
+                <br>
+                <label for="question">Question</label>
+                <input type="radio" id="question" name="type" value="question">
+                <br><br>
+            </form>
+            <input type="button" value="Remove Question" onclick="removeQuestion(${questionCount})" /><br /><br />
+            <input type="button" value="+" onclick="addOption(${questionCount})" /><br />
+            <div id="optionsContainer${questionCount}">
+            <div id="option1">
+                <label style="font-size: 1.2em;">Option ID</label><br />
+                <input type="text" name="opt" /><br />
+                <label style="font-size: 1.2em;">Option Text</label><br />
+                <input type="text" name="opttxt" /><br />
+            </div><br />
+            </div>
+        </div>
+        `;
     var questionContainer = document.getElementById("questionContainer");
     questionContainer.appendChild(newQuestion);
 }
@@ -60,14 +60,14 @@ function addOption(questionNum) {
     optionCount[questionNum]++;
     var newOption = document.createElement("div");
     newOption.innerHTML = `
-			<div id="option${optionCount[questionNum]}" class="option" idx="${optionCount[questionNum]}">
-                <br /><label style="font-size: 1.2em;">Option ID</label><br />
-                <input type="text" name="opt" /><br />
-                <label style="font-size: 1.2em;">Option Text</label><br />
-                <input type="text" name="opttxt" /><br />
-                <input type="button" value="Remove Option" onclick="removeOption(this, ${questionNum})" /><br />
-			</div>
-			`;
+        <div id="option${optionCount[questionNum]}" class="option" idx="${optionCount[questionNum]}">
+            <br /><label style="font-size: 1.2em;">Option ID</label><br />
+            <input type="text" name="opt" /><br />
+            <label style="font-size: 1.2em;">Option Text</label><br />
+            <input type="text" name="opttxt" /><br />
+            <input type="button" value="Remove Option" onclick="removeOption(this, ${questionNum})" /><br />
+        </div>
+        `;
     var optionsContainer = document.getElementById("optionsContainer" + questionNum);
     optionsContainer.insertBefore(newOption, optionsContainer.lastChild);
 }
@@ -147,5 +147,5 @@ function parseQuestions() {
     }
     var json = JSON.stringify(questionData);
     sessionStorage.setItem("questionData", json);
-    window.location.href = "./qqflow.html";
+    window.location.href = "/createflow";
 }

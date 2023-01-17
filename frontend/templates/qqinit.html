@@ -32,14 +32,15 @@ Initial Data
             padding: 10px;" onclick="document.getElementById('error-box').style.display='none';">&times;</span>
     </div>
 </div>
-<form id="questionnaireContainer">
-    <div id="questionnaire">
+<form id="questionnaireContainer" style="text-align: center;">
+    <div id=" questionnaire">
         <h1 style="font-size: 1.5em;">Insert the general data for the questionnaire</h1>
         <label style="font-size: 1.2em;">Questionnaire ID:</label><br />
         <input type="text" id="qqid" /><br /><br />
         <label style="font-size: 1.2em;">Questionnaire Title:</label><br />
         <input type="text" id="qqtitle" /><br /><br />
-        <input type="button" value="+" onclick="addKeyword()" />
+        <input type="button" value="+" class="btn btn-danger" onclick="addKeyword()"
+            style="margin: 0 auto; display: block;" />
         <div id="keywordContainer">
             <div id="keyword1">
                 <label style="font-size: 1.2em;">Keywords:</label><br />
@@ -48,65 +49,9 @@ Initial Data
         </div>
     </div>
 </form>
-<br /><button onclick="parseQQdata()">Submit</button>
+<br><br><button class="btn btn-danger" onclick="parseQQdata()"
+    style="margin: 0 auto; display: block; font-size: 28px; font-weight: bold;">Submit</button><br />
 <br />
 <div id="output"></div>
-<script>
-    function checkForError() {
-        var qqid = document.getElementById("qqid").value;
-        var qqtitle = document.getElementById("qqtitle").value;
-        if (qqid === "" || qqtitle === "") {
-            document.getElementById("error-box").style.display = "flex";
-            return true;
-        }
-        return false;
-    }
-
-    var keywordCount = 1;
-
-    function addKeyword() {
-        keywordCount++;
-
-        var newKeyword = document.createElement("div");
-        newKeyword.innerHTML = `
-			<div id="keyword${keywordCount}">
-                <br /><input type="text" class="keyword" /><br />
-                <input type="button" value="Remove Keyword" onclick="removeKeyword(${keywordCount})" />
-			</div>
-			`;
-        var keywordContainer = document.getElementById("keywordContainer");
-        keywordContainer.insertBefore(newKeyword, keywordContainer.lastChild);
-    }
-
-    function removeKeyword(keywordIndex) {
-        var keywordDiv = document.getElementById(`keyword${keywordIndex}`);
-        keywordDiv.parentNode.removeChild(keywordDiv);
-
-        // adjust the questionCount
-        keywordCount--;
-    }
-
-    function parseQQdata() {
-        if (checkForError()) return;
-        var questionnaireID = document.getElementById("qqid").value;
-        var questionnaireTitle = document.getElementById("qqtitle").value;
-        var keywords = [];
-        var keywordElements = document.getElementsByClassName("keyword");
-        for (var i = 0; i < keywordElements.length; i++) {
-            if (keywordElements[i].value !== "") {
-                keywords.push(keywordElements[i].value);
-            }
-        }
-
-        var data = {
-            "questionnaireID": questionnaireID,
-            "questionnaireTitle": questionnaireTitle,
-            "keywords": keywords
-        };
-
-        var jsonData = JSON.stringify(data);
-        sessionStorage.setItem("qqgenData", jsonData);
-        window.location.href = "/createqs";
-    }
-</script>
+<script src="../templates/qqinit.js"></script>
 {% endblock content %}
