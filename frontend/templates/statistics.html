@@ -1,0 +1,28 @@
+{% extends "global_layout.html" %}
+
+{% block title %}
+Fetch Statistics
+{% endblock title %}
+
+{% block content %}
+
+<form id="statisticsForm">
+    <label for="questionnaireID">Enter Questionnaire ID:</label>
+    <input type="text" id="questionnaireID" name="questionnaireID" required>
+    <br>
+    <label for="questionID">Enter Question ID:</label>
+    <input type="text" id="questionID" name="questionID" required>
+    <br>
+</form>
+
+<button class="btn btn-danger" onclick="submitForm()">Fetch Statistics</button><br />
+
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script src="../templates/statistics.js">
+   
+</script>
+
+{% endblock content %}

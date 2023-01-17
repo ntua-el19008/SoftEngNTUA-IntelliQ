@@ -10,7 +10,7 @@ const api = require('./routes/intelliq_api')
 // Middlewares
 app.use(bodyparser.json());
 app.use('/intelliq_api', api);
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // Set up nunjucks templating engine
 const nunjucks = require('nunjucks');
@@ -34,6 +34,11 @@ app.get('/', (req, res) => {
 
 app.get('/create', (req, res) => {
     res.render('qqinit');
+})
+
+app.get('/statistics', (req, res) => {
+    var statisticsUrl = path.join(__dirname, '../frontend/templates/statistics.js');
+    res.render('statistics', { title: 'Fetch Question Statistics', statisticsUrl: statisticsUrl });
 })
 
 //const Questionnaire = require('./routes/Questionnaire');
