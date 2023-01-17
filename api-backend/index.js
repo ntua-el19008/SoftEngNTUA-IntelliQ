@@ -9,14 +9,14 @@ const api = require('./routes/intelliq_api')
 
 // Middlewares
 app.use(bodyparser.json());
-app.use('/intelliq_api', api );
+app.use('/intelliq_api', api);
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 // Set up nunjucks templating engine
-const nunjucks = require('nunjucks');	
+const nunjucks = require('nunjucks');
 nunjucks.configure(path.join(__dirname, '..', 'frontend', 'templates'), {
-	autoescape: false,
-	express: app
+    autoescape: false,
+    express: app
 })
 
 app.set('view engine', 'html');
@@ -30,6 +30,10 @@ app.listen(port, () => {
 // Get request to root
 app.get('/', (req, res) => {
     res.render('index', { title: 'IntelliQ' });
+})
+
+app.get('/create', (req, res) => {
+    res.render('qqinit');
 })
 
 //const Questionnaire = require('./routes/Questionnaire');
