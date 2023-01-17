@@ -35,11 +35,13 @@ function displayQuestions() {
             var option = questionData[i];
             var optionDiv = document.createElement("div");
             var optionTitle = document.createElement("p");
+            var br = document.createElement("br");
             optionTitle.innerHTML = "Option " + optcount + ": " + option.optID + " - " + option.opttxt;
             var qnextSelect = createQnextSelect(option.qID);
             optionDiv.appendChild(optionTitle);
             optionDiv.appendChild(qnextSelect);
             document.getElementById("questionsContainer").appendChild(optionDiv);
+            document.getElementById("questionsContainer").appendChild(br);
             optcount++;
         }
         else {
@@ -47,7 +49,7 @@ function displayQuestions() {
             var questionDiv = document.createElement("div");
             var questionTitle = document.createElement("h1");
             questionTitle.style = "font-size: 1.2em;";
-            questionTitle.innerHTML = "<br>Question " + (qcount) + "(" + questionData[i].qID + ")" + "<br />" + questionData[i].qtext;
+            questionTitle.innerHTML = "<br>Question " + (qcount) + " (" + questionData[i].qID + ")" + "<br />" + questionData[i].qtext;
             questionDiv.appendChild(questionTitle);
             document.getElementById("questionsContainer").appendChild(questionDiv);
             qcount++;

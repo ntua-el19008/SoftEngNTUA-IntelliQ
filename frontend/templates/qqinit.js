@@ -16,7 +16,7 @@ function addKeyword() {
     var newKeyword = document.createElement("div");
     newKeyword.innerHTML = `
         <div id="keyword${keywordCount}">
-            <br /><input type="text" class="keyword" /><br />
+            <br><input type="text" class="keyword"/><br><br>
             <input type="button" value="Remove Keyword" class="btn btn-danger" onclick="removeKeyword(${keywordCount})" style="margin: 0 auto; display: block;" />
         </div>
         `;
