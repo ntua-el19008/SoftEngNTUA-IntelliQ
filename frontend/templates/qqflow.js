@@ -1,7 +1,5 @@
 var questionData = JSON.parse(sessionStorage.getItem('questionData'));
 
-var qqgenData = JSON.parse(sessionStorage.getItem('qqgenData'));
-
 function createQnextSelect(questionIndex) {
     var qid_arr = [];
 
@@ -58,59 +56,6 @@ function displayQuestions() {
     }
 }
 
-function parseAll() {
-    qqgenData.questions = [];
-
-    var firstopt = 1;
-
-    question = null;
-    for (var i = 0; i < questionData.length; i++) {
-        if (questionData[i].qtext === undefined) {
-            //option
-
-            delete questionData[i].qID;
-
-            if (firstopt === 1) {
-                question.options = [];
-                question.options.push(questionData[i]);
-                firstopt = 0;
-            } else {
-                question.options.push(questionData[i]);
-            }
-        }
-        else {
-            //question
-
-            firstopt = 1;
-            qqgenData.questions.push(question);
-            question = questionData[i];
-        }
-    }
-    qqgenData.questions.push(question);
-    qqgenData.questions.shift();
-
-
-    var json = JSON.stringify(qqgenData);
-    const formData = new FormData();
-    formData.append("jsonFile", new Blob([json], { type: "application/json" }), "questionnaire.json");
-
-    fetch("/intelliq_api/admin/questionnaire_upd", {
-        method: "POST",
-        body: formData
-    }).then((response) => {
-        if (response.ok) {
-            console.log("File uploaded successfully");
-        } else {
-            console.log("Error uploading file");
-        }
-    });
-
-    // sessionStorage.removeItem("qqgenData");
-    // sessionStorage.removeItem("questionData");
-
-    // window.location.href = "/";
-}
-
 function submitQnext() {
     let selects = document.getElementsByName("nextqID");
     let answers = [];
@@ -126,5 +71,8 @@ function submitQnext() {
             cnt++;
         }
     }
-    parseAll();
+
+    var json = JSON.stringify(questionData);
+    sessionStorage.setItem("questionData", json);
+    window.location.href = "/createinit";
 }

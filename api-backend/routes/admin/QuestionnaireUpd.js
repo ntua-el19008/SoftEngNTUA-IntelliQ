@@ -44,12 +44,37 @@ function showqueries(jsonstr) {
 
 router
     .route("/")
-    .post(upload.single('jsonFile'), (req, res) => {
-        if (req.file) {
-            var jsonstr = req.file.buffer.toString();
-            var query_arr = showqueries(jsonstr);
-            console.log(query_arr);
+    .post(upload.single('jsonFile'), async (req, res) => {
+        try {
+            if (req.file) {
+                var jsonstr = req.file.buffer.toString();
+                var query_arr = showqueries(jsonstr).flat();;
+
+                for (var i = 0; i < query_arr.length; i++) {
+                    try {
+                        query = query_arr[i];
+                        const [result, _fields] = await promisePool.query(query);
+                        console.log(result);
+                    } catch (error) {
+                        res.status(400).json({ error: error.message });
+                        console.log("Bad request/MySQL error");
+                        return;
+                    }
+                }
+                res.status(200).json({ message: 'Answer added successfully' });
+                return;
+            }
+            else {
+                res.status(400).json({ error: "No file was given!" });
+                console.log("Bad request/No file");
+                return;
+            }
         }
-    })
+        catch (err) {
+            res.status(500).json({ error: "Internal error" });
+            console.log(err);
+            return;
+        }
+    });
 
 module.exports = router;

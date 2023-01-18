@@ -1,3 +1,5 @@
+var questionData = JSON.parse(sessionStorage.getItem('questionData'));
+
 function checkForError() {
     var qqid = document.getElementById("qqid").value;
     var qqtitle = document.getElementById("qqtitle").value;
@@ -65,7 +67,60 @@ function parseQQdata() {
         "keywords": keywords
     };
 
-    var jsonData = JSON.stringify(data);
-    sessionStorage.setItem("qqgenData", jsonData);
-    window.location.href = "/createqs";
+    parseAll(data);
+}
+
+function parseAll(qqgenData) {
+    qqgenData.questions = [];
+
+    var firstopt = 1;
+
+    question = null;
+    for (var i = 0; i < questionData.length; i++) {
+        if (questionData[i].qtext === undefined) {
+            //option
+
+            delete questionData[i].qID;
+
+            if (firstopt === 1) {
+                question.options = [];
+                question.options.push(questionData[i]);
+                firstopt = 0;
+            } else {
+                question.options.push(questionData[i]);
+            }
+        }
+        else {
+            //question
+
+            firstopt = 1;
+            qqgenData.questions.push(question);
+            question = questionData[i];
+        }
+    }
+    qqgenData.questions.push(question);
+    qqgenData.questions.shift();
+
+
+    var json = JSON.stringify(qqgenData);
+    const formData = new FormData();
+    formData.append("jsonFile", new Blob([json], { type: "application/json" }), "questionnaire.json");
+
+    fetch("/intelliq_api/admin/questionnaire_upd", {
+        method: "POST",
+        body: formData
+    })
+        .then(response => response.json())
+        .then(responseJson => {
+            if (responseJson.error) {
+                alert(responseJson.error);
+            } else {
+                sessionStorage.removeItem("qqgenData");
+                sessionStorage.removeItem("questionData");
+                window.location.href = "/";
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
