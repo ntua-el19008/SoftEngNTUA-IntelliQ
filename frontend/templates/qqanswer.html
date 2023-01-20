@@ -1,0 +1,16 @@
+{% extends "global_layout.html" %}
+
+{% block title %}
+Answer Questionnaire
+{% endblock title %}
+{% block content %}
+
+<form id="statisticsForm">
+    <label for="questionnaireID">Enter Questionnaire ID:</label>
+    <input type="text" id="questionnaireID" name="questionnaireID" required>
+    <br>
+</form>
+
+<button class="btn btn-danger" onclick="submitForm()">Answer Questionnaire</button><br />
+
+{% endblock content %}
