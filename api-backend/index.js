@@ -44,6 +44,10 @@ app.get('/createflow', (req, res) => {
     res.render('qqflow');
 })
 
+app.get('/answer', (req, res) => {
+    res.render('qqanswer');
+})
+
 app.get('/statistics', (req, res) => {
     var statisticsUrl = path.join(__dirname, '../frontend/templates/statistics.js');
     res.render('statistics', { title: 'Fetch Question Statistics', statisticsUrl: statisticsUrl });

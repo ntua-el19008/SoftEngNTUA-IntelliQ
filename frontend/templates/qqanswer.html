@@ -3,14 +3,15 @@
 {% block title %}
 Answer Questionnaire
 {% endblock title %}
-{% block content %}
 
-<form id="statisticsForm">
+{% block content %}
+<br>
+<form id="questionnaireForm" style="text-align: center; padding: 10px 20px;">
     <label for="questionnaireID">Enter Questionnaire ID:</label>
     <input type="text" id="questionnaireID" name="questionnaireID" required>
-    <br>
 </form>
 
-<button class="btn btn-danger" onclick="submitForm()">Answer Questionnaire</button><br />
+<button class="btn btn-danger" onclick="submitForm()"
+style="margin: 0 auto; display: block;">Answer Questionnaire</button><br/>
 
 {% endblock content %}
