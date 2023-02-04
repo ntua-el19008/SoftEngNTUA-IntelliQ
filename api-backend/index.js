@@ -14,6 +14,7 @@ app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // Set up nunjucks templating engine
 const nunjucks = require('nunjucks');
+const { METHODS } = require('http');
 nunjucks.configure(path.join(__dirname, '..', 'frontend', 'templates'), {
     autoescape: false,
     express: app
@@ -42,6 +43,10 @@ app.get('/createqs', (req, res) => {
 
 app.get('/createflow', (req, res) => {
     res.render('qqflow');
+})
+
+app.get('/select2answer', (req, res) => {
+    res.render('qqselect');
 })
 
 app.get('/answer', (req, res) => {

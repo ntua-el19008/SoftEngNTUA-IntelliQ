@@ -8,10 +8,20 @@ Answer Questionnaire
 <br>
 <form id="questionnaireForm" style="text-align: center; padding: 10px 20px;">
     <label for="questionnaireID">Enter Questionnaire ID:</label>
-    <input type="text" id="questionnaireID" name="questionnaireID" required>
+    <input type="text" id="questionnaireID" placeholder="This field is required" name="questionnaireID" required>
 </form>
 
-<button class="btn btn-danger" onclick="submitForm()"
-style="margin: 0 auto; display: block;">Answer Questionnaire</button><br/>
+<br>
+<div class="card" id="card-container">
+            
+    <div class="card-body" id="card">
+        <div class="table-responsive"> 
+        </div>
+    </div>
+    
+</div>
 
+<br/>
+
+<script src="../templates/qqselect.js"></script>
 {% endblock content %}
