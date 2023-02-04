@@ -4,24 +4,32 @@
 Answer Questionnaire
 {% endblock title %}
 
-{% block content %}
-<br>
-<form id="questionnaireForm" style="text-align: center; padding: 10px 20px;">
-    <label for="questionnaireID">Enter Questionnaire ID:</label>
-    <input type="text" id="questionnaireID" placeholder="This field is required" name="questionnaireID" required>
-</form>
 
+{% block content %}
+<script src="../templates/qqanswer.js"></script>
+<h1>
+    Still not ready. Sorry ${title}
+</h1>
 <br>
-<div class="card" id="card-container">
-            
+<script>
+    //call after page loaded
+    window.onload = display(); 
+</script>
+<div class="card" id="card-container">         
     <div class="card-body" id="card">
         <div class="table-responsive"> 
+            <div>
+                <button id="secondButton" class="btn btn-danger"  onclick=" get()"
+                style="margin: 0 auto; display: block;">Answer Selected Questionnaire</button>
+            </div>
         </div>
     </div>
-    
 </div>
-
 <br/>
 
-<script src="../templates/qqselect.js"></script>
+
+
+
+
+
 {% endblock content %}

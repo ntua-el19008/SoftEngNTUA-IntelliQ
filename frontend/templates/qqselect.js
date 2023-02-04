@@ -5,6 +5,7 @@ const firstButton = document.getElementById("firstButton");
       });
 
 var QID;
+var questionnaire_result = {};
 
 function fetchQuestionnaire(){
     const questionnaireID = document.getElementById("questionnaireID").value;
@@ -32,13 +33,18 @@ function fetchQuestionnaire(){
                 </div>
                 `;
                 var questionContainer = document.getElementById("card");
-                questionContainer.appendChild(question);
+                //questionContainer.appendChild(question);
+                questionContainer.replaceChildren(question);
                 QID = questionnaireID;
-                //answer(questionnaireID, title)
-                //window.location.href = "/answer";
-
+                questionnaire_result = {
+                    "questionnaireID": questionnaireID,
+                    "questionnaireTitle": title,
+                    "keywords": data["keywords"],
+                    "questions": data["questions"]
+                }
             }
         })
+        .catch(error => console.error(error));
 
 }
 
@@ -56,8 +62,13 @@ function answer() {
         </div>
         `;
     var questionContainer = document.getElementById("card");
-    questionContainer.appendChild(question);
-    //window.location.href = "/answer";
+    //questionContainer.appendChild(question);
+    //var json = JSON.stringify(questionnaire_result);
+    //sessionStorage.setItem("questionnaire_result", json);
+    alert(questionnaire_result["questionnaireTitle"]);
+    var json = JSON.stringify(questionnaire_result);
+    sessionStorage.setItem("questionnaireData", json);
+    window.location.href = "/answer";
 }
 
 
