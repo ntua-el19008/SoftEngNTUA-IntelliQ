@@ -7,10 +7,9 @@ Answer Questionnaire
 
 {% block content %}
 <script src="../templates/qqanswer.js"></script>
-<h1>
-    Still not ready. Sorry ${title}
-</h1>
-<br>
+<div id="header">
+
+</div>
 <script>
     //call after page loaded
     window.onload = display(); 
@@ -20,7 +19,7 @@ Answer Questionnaire
         <div class="table-responsive"> 
             <div>
                 <button id="secondButton" class="btn btn-danger"  onclick=" get()"
-                style="margin: 0 auto; display: block;">Answer Selected Questionnaire</button>
+                style="margin: 0 auto; display: block;">Begin</button>
             </div>
         </div>
     </div>
