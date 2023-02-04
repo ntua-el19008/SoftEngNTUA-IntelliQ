@@ -11,7 +11,7 @@ Answer Questionnaire
     <input type="text" id="questionnaireID" placeholder="This field is required" name="questionnaireID" required>
 </form>
 
-<button class="btn btn-danger" onclick=" fetchQuestionnaire()"
+<button id="firstButton" class="btn btn-danger" onclick=" fetchQuestionnaire()"
 style="margin: 0 auto; display: block;">Select Questionnaire</button><br/>
 
 
@@ -24,8 +24,12 @@ style="margin: 0 auto; display: block;">Select Questionnaire</button><br/>
     </div>
     
 </div>
-
 <br/>
+
+<div>
+    <button id="secondButton" class="btn btn-danger"  onclick=" answer()"
+            style="margin: 0 auto; display: none;">Answer Selected Questionnaire</button>
+</div>
 
 <script src="../templates/qqselect.js"></script>
 {% endblock content %}

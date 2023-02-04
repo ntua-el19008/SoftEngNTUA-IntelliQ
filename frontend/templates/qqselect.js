@@ -1,5 +1,14 @@
+const firstButton = document.getElementById("firstButton");
+    const secondButton = document.getElementById("secondButton");
+    firstButton.addEventListener("click", function() {
+        secondButton.style.display = "block";
+      });
+
+var QID;
+
 function fetchQuestionnaire(){
     const questionnaireID = document.getElementById("questionnaireID").value;
+    
     fetch(`/intelliq_api/questionnaire/${questionnaireID}`)
         .then(response => response.json())
        // .then(response => console.log(response))
@@ -19,21 +28,36 @@ function fetchQuestionnaire(){
                 <h2>${title}<h2/>
                 <h3>Are you sure you want to answer this questionnaire?
                 <h3/>
-                <button class="btn btn-danger"  onclick=" answer(${questionnaireID}, ${title})"
-                    style="margin: 0 auto; display: block;">Answer Selected Questionnaire</button>
                 </form>
                 </div>
                 `;
                 var questionContainer = document.getElementById("card");
                 questionContainer.appendChild(question);
+                QID = questionnaireID;
                 //answer(questionnaireID, title)
                 //window.location.href = "/answer";
 
-              //  var json = JSON.stringify(response.json());
-              //  sessionStorage.setItem("questionData", json);
             }
         })
 
-}     
+}
+
+function answer() {
+    //const questionnaireID = document.getElementById("questionnaireID").value;
+    var question = document.createElement("div");
+    question.innerHTML = `
+        <div>
+        <form id="questionnaireIntro" style="text-align: center; padding: 10px 20px;">
+        <h1>Give answers for questionnaire with title :<h1/>
+        <h2>${QID}<h2/>
+        <h3>Are you sure you want to answer this questionnaire?
+        <h3/>
+        </form>
+        </div>
+        `;
+    var questionContainer = document.getElementById("card");
+    questionContainer.appendChild(question);
+    //window.location.href = "/answer";
+}
 
 
