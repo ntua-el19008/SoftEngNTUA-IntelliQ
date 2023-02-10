@@ -7,8 +7,8 @@ function addQuestion() {
 
     var newQuestion = document.createElement("div");
     newQuestion.innerHTML = `
-        <br><div id="question${questionCount}" style="text-align: center;">
-            <h1 style="font-size: 1.7em;">Question ${questionCount}</h1>
+        <div id="question${questionCount}" style="text-align: center;">
+            <br><h1 style="font-size: 1.7em;">Question ${questionCount}</h1>
             <input type="button" value="Remove Question" class="btn btn-danger" onclick="removeQuestion(${questionCount})"
 			style="margin: 0 auto; display: block;" /><br>
             <label style="font-size: 1.2em;">Question ID</label><br>
@@ -38,6 +38,7 @@ function addQuestion() {
             <div id="optionsContainer${questionCount}">
             <div id="option1">
                 <label style="font-size: 1.2em;">Option ID</label><br>
+                <label style="font-size: 1em;">(insert "&lt;txtbox&gt;" for a textbox)</label><br>
                 <input type="text" name="opt" placeholder="Max length 10 characters"/><br>
                 <label style="font-size: 1.2em;">Option Text</label><br>
                 <input type="text" name="opttxt" placeholder="Max length 255 characters"/><br>
