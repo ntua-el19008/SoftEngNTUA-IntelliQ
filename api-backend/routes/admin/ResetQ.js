@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router
-    .route("/resetq/:questionnaireID")
+    .route("/:questionnaireID")
     .post((req,res) => {
         const qqid = req.params.questionnaireID;
         const query = `delete * from Participant WHERE QQID = '${qqid}';`;
