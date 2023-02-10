@@ -1,6 +1,6 @@
 import subprocess
 import os
-subprocess.check_call("pip install mysql-connector-python", shell=True)
+subprocess.check_call("pip install mysql-connector", shell=True)
 import mysql.connector
 
 # install npm packages
