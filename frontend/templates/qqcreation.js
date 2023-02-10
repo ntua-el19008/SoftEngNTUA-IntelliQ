@@ -38,7 +38,7 @@ function addQuestion() {
             <div id="optionsContainer${questionCount}">
             <div id="option1">
                 <label style="font-size: 1.2em;">Option ID</label><br>
-                <label style="font-size: 1em;">(insert "&lt;txtbox&gt;" for a textbox)</label><br>
+                <label style="font-size: 1em;">(insert "&lt;txtbox&gt;" for a textbox, only 1 option)</label><br>
                 <input type="text" name="opt" placeholder="Max length 10 characters"/><br>
                 <label style="font-size: 1.2em;">Option Text</label><br>
                 <input type="text" name="opttxt" placeholder="Max length 255 characters"/><br>
