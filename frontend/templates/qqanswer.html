@@ -3,14 +3,32 @@
 {% block title %}
 Answer Questionnaire
 {% endblock title %}
+
+
 {% block content %}
+<script src="../templates/qqanswer.js"></script>
+<div id="header">
 
-<form id="statisticsForm">
-    <label for="questionnaireID">Enter Questionnaire ID:</label>
-    <input type="text" id="questionnaireID" name="questionnaireID" required>
-    <br>
-</form>
+</div>
+<script>
+    //call after page loaded
+    window.onload = display(); 
+</script>
+<div class="card" id="card-container">         
+    <div class="card-body" id="card">
+        <div class="table-responsive"> 
+            <div>
+                <button id="secondButton" class="btn btn-danger"  onclick=" get()"
+                style="margin: 0 auto; display: block;">Begin</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
 
-<button class="btn btn-danger" onclick="submitForm()">Answer Questionnaire</button><br />
+
+
+
+
 
 {% endblock content %}
