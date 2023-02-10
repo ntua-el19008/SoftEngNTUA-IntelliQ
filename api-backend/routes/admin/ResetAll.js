@@ -1,27 +1,36 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const pool = require('../../db_connect');
+const promisePool = pool.promise();
 
 router
-    .route("/resetall")
-    .post((req,res) => {
-        var query = 'delete * from Participant';
-        pool.getConnection((err,conn)=> {
-            if(err){
-                res.json({status:"failed", reason:"failed to connect to db"})
-                return;
+    .route("/")
+    .post(async (req, res) => {
+        // Get a connection from the promise pool
+        const connection = await promisePool.getConnection();
+
+        try {
+            // Read the SQL script
+            const sql = await fs.promises.readFile('../data/tables.sql', 'utf8');
+
+            // Split the script into separate statements
+            let statements = sql.split(';');
+            
+            // Execute each statement individually
+            for (let statement of statements) {
+                if (statement === '\r\n') continue;
+                
+                await connection.query(statement);
             }
-            conn.query(query,(err,rows,fields)=>{
-                if(err){
-                    res.json({status:"failed",reason:err.toString()})
-                    conn.release();
-                    return;
-                }
-                res.json({status:"OK"})
-                conn.release();
-            })
 
-        })
+            res.status(200).send("Database reset successful!");
+            console.log("Database reset successful!");
+        } catch (err) {
+            // If there is an error, destroy the connection
+            connection.destroy();
+            throw err;
+        }
+    });
 
-    })
-
-    module.exports = router;
+module.exports = router;
