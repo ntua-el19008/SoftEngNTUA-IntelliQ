@@ -27,9 +27,9 @@ router
             res.status(200).send("Database reset successful!");
             console.log("Database reset successful!");
         } catch (err) {
-            // If there is an error, destroy the connection
-            connection.destroy();
-            throw err;
+            res.status(500).json({ error: err });
+            console.log(err);
+            return;
         }
     });
 
