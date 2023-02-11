@@ -6,17 +6,17 @@ const promisePool = pool.promise();
 
 router
     .route("/")
-    .get((req,res) => {
-        pool.getConnection((err,conn) => {
-        if(err){
-            res.json({status :"failed", dbconnection : err.toString() });
-            throw err;
-        }
-        else 
-            res.json({status :"ok", dbconnection : "Connected" });
-        conn.release();
+    .get((req, res) => {
+        pool.getConnection((err, conn) => {
+            if (err) {
+                res.json({ status: "failed", dbconnection: err.toString() });
+                throw err;
+            }
+            else
+                res.json({ status: "OK", dbconnection: "Connected" });
+            conn.release();
         });
-        
-    })
+
+    });
 
 module.exports = router;

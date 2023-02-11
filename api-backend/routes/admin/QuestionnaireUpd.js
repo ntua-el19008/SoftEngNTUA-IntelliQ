@@ -5,8 +5,121 @@ const upload = multer();
 const pool = require('../../db_connect');
 const promisePool = pool.promise();
 
+function check(jsonData) {
+    if (!(
+        jsonData.hasOwnProperty('questionnaireID') &&
+        typeof jsonData.questionnaireID === 'string' &&
+        jsonData.questionnaireID.length > 0 &&
+        jsonData.questionnaireID.length < 11 &&
+
+        jsonData.hasOwnProperty('questionnaireTitle') &&
+        typeof jsonData.questionnaireTitle === 'string' &&
+        jsonData.questionnaireTitle.length > 0 &&
+        jsonData.questionnaireTitle.length < 256 &&
+
+        jsonData.hasOwnProperty('keywords') &&
+        Array.isArray(jsonData.keywords) &&
+
+        jsonData.hasOwnProperty('questions') &&
+        Array.isArray(jsonData.questions) &&
+        jsonData.questions.length > 0
+    )) {
+        console.log("qq error");
+        return false;
+    } else {
+
+        if (jsonData.hasOwnProperty('qqmask')) {
+            if (!(
+                typeof jsonData.qqmask === 'string' &&
+                jsonData.qqmask.match(/^@[a-zA-Z][a-zA-Z0-9]*([.-][a-zA-Z0-9]+)*\.[a-zA-Z0-9]*[a-zA-Z]$/) &&
+                jsonData.qqmask.length <= 63
+            )) {
+                console.log("qqmask error");
+                return false;
+            }
+        }
+
+        for (let i = 0; i < jsonData.keywords.length; i++) {
+            var keyword = jsonData.keywords[i];
+
+            if (keyword.length > 255) {
+                console.log("keyword error");
+                return false;
+            }
+        }
+        for (let i = 0; i < jsonData.questions.length; i++) {
+            var question = jsonData.questions[i];
+
+            if (!(
+                question.hasOwnProperty('qID') &&
+                typeof question.qID === 'string' &&
+                question.qID.length > 0 &&
+                question.qID.length < 11 &&
+
+                question.hasOwnProperty('qtext') &&
+                typeof question.qtext === 'string' &&
+                question.qtext.length > 0 &&
+                question.qtext.length < 256 &&
+
+                question.hasOwnProperty('required') &&
+                typeof question.required === 'string' &&
+                question.required.match(/^(TRUE|FALSE)$/) &&
+
+                question.hasOwnProperty('type') &&
+                typeof question.type === 'string' &&
+                question.type.match(/^(profile|question)$/) &&
+
+                question.hasOwnProperty('options') &&
+                Array.isArray(question.options) &&
+                question.options.length > 0
+            )) {
+                console.log("q error");
+                console.log(question);
+                return false;
+            }
+            else {
+                for (let i = 0; i < question.options.length; i++) {
+                    var option = question.options[i];
+
+                    if (!(
+                        option.hasOwnProperty('optID') &&
+                        typeof option.optID === 'string' &&
+                        option.optID.length > 0 &&
+                        option.optID.length < 11 &&
+
+                        option.hasOwnProperty('opttxt') &&
+                        typeof option.opttxt === 'string' &&
+                        option.opttxt.length > 0 &&
+                        option.opttxt.length < 256 &&
+
+                        option.hasOwnProperty('nextqID') &&
+                        typeof option.nextqID === 'string' &&
+                        option.nextqID.length > 0 &&
+                        option.nextqID.length < 11
+                    )) {
+                        console.log("opt error");
+                        console.log(option);
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
 function showqueries(jsonstr) {
     var qq = JSON.parse(jsonstr);
+
+    var ret = check(qq);
+
+    if (ret === false) {
+        console.log("json error");
+        return false;
+    } else {
+        console.log("good json");
+    }
 
     var qq_query = "INSERT INTO Questionnaire (QQID, Title, Mask) VALUES ('" + qq.questionnaireID + "', '" + qq.questionnaireTitle + "', '" + qq.qqmask + "');";
 
@@ -48,7 +161,14 @@ router
         try {
             if (req.file) {
                 var jsonstr = req.file.buffer.toString();
-                var query_arr = showqueries(jsonstr).flat();;
+                var query_arr = showqueries(jsonstr);
+
+                if (!query_arr) {
+                    res.status(400).json({ status: "failed", error: "Wrong JSON format" });
+                    console.log("Wrong JSON format");
+                    return;
+                }
+                query_arr = query_arr.flat();
 
                 for (var i = 0; i < query_arr.length; i++) {
                     try {
@@ -56,22 +176,22 @@ router
                         const [result, _fields] = await promisePool.query(query);
                         console.log(result);
                     } catch (error) {
-                        res.status(400).json({ error: error.message });
+                        res.status(400).json({ status: "failed", error: error.message });
                         console.log("Bad request/MySQL error");
                         return;
                     }
                 }
-                res.status(200).json({ message: 'Answer added successfully' });
+                res.status(200).json({ status: "OK", message: 'Answer added successfully' });
                 return;
             }
             else {
-                res.status(400).json({ error: "No file was given!" });
+                res.status(400).json({ status: "failed", error: "No file was given!" });
                 console.log("Bad request/No file");
                 return;
             }
         }
         catch (err) {
-            res.status(500).json({ error: "Internal error/JSON error" });
+            res.status(500).json({ status: "failed", error: "Internal error" });
             console.log(err);
             return;
         }

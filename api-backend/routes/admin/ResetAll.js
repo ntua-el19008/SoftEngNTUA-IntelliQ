@@ -16,18 +16,19 @@ router
 
             // Split the script into separate statements
             let statements = sql.split(';');
-            
+
             // Execute each statement individually
             for (let statement of statements) {
                 if (statement === '\r\n') continue;
-                
+                if (statement === '\n') continue;
+
                 await connection.query(statement);
             }
 
-            res.status(200).send("Database reset successful!");
+            res.status(200).json({ status: "OK" });
             console.log("Database reset successful!");
         } catch (err) {
-            res.status(500).json({ error: err });
+            res.status(500).json({ status: "failed", reason: err });
             console.log(err);
             return;
         }
