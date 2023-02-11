@@ -2,7 +2,7 @@ var questionnaireData = JSON.parse(sessionStorage.getItem('questionnaireData'));
 var qindex = 0;
 var question_result = {};
 var answers = [];
-var session;
+var session="gfgf";
 
 //fetching first question when page loads
 function display() {
@@ -97,7 +97,7 @@ function fetchNext(question_result) {
         "type": question_result["type"],
         "optID": question_result["options"][optindex]["optID"],
         "optiontxt": question_result["options"][optindex]["opttxt"],
-        "nextopt": question_result["options"][optindex]["nextqID"]
+        "nextq": question_result["options"][optindex]["nextqID"]
     };
 
     answers.push(temp);
@@ -114,13 +114,14 @@ function fetchNext(question_result) {
         
     }
     else {
-        if (temp["nextopt"] == NULLQ) {
+        if (temp["nextq"] === undefined) {
             qindex += 1;
         }
         else {
-            for (var i = 0; i < questionnaireData.length; i++) {
-                if  (questionnaireData["questions"][i]["qid"] == temp["nextopt"]) {
+            for (var i = 0; i < questionnaireData["questions"].length; i++) {
+                if  (questionnaireData["questions"][i]["qid"] === temp["nextq"]) {
                     qindex = i;
+                    alert(qindex);
                     break;
                 }
             }
