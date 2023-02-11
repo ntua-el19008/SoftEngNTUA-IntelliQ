@@ -4,6 +4,84 @@ const pool = require('../db_connect');
 const promisePool = pool.promise();
 const { parse } = require('json2csv');
 
+/**
+ * @swagger
+ * /intelliq_api/questionnaire/{questionnaireID}:
+ *   get:
+ *     summary: Get questionnaire information
+ *     description: Returns the information of a specific questionnaire
+ *     parameters:
+ *       - name: questionnaireID
+ *         in: path
+ *         required: true
+ *         description: ID of the questionnaire
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 questionnaireID:
+ *                   type: string
+ *                 questionnaireTitle:
+ *                   type: string
+ *                 keywords:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                 questions:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       qid:
+ *                         type: string
+ *                       qtext:
+ *                         type: string
+ *                       required:
+ *                         type: string
+ *                         enum: ["true", "false"]
+ *                       type:
+ *                         type: string
+ *                         enum: ["profile", "question"]
+ *       400:
+ *         description: "Missing required parameter: questionnaireID"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Missing required parameter: questionnaireID"
+ *       402:
+ *         description: No data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: No data
+ *       500:
+ *         description: Internal error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal error
+ *     produces:
+ *       - application/json
+ *       - text/csv
+ */
 
 router.get("/", (req, res) => { 
     // Return 400 (Bad Request) if no questionnaireID is provided

@@ -4,6 +4,69 @@ const pool = require('../db_connect');
 const promisePool = pool.promise();
 const { parse } = require('json2csv');
 
+/**
+ * @swagger
+ * /intelliq_api/question/{questionnaireID}/{questionID}:
+ *   get:
+ *     summary: Get data for a specific question
+ *     description: Returns data for a specific question.
+ *     parameters:
+ *       - in: path
+ *         name: questionnaireID
+ *         required: true
+ *         description: ID of the questionnaire the question belongs to
+ *       - in: path
+ *         name: questionID
+ *         required: true
+ *         description: ID of the question
+ *       - in: query
+ *         name: format
+ *         description: Format for the returned data (either "csv" or "json")
+ *     responses:
+ *       200:
+ *         description: Successfully returned data for the specified question
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 questionnaireID:
+ *                   type: string
+ *                   description: ID of the questionnaire the question belongs to
+ *                 qID:
+ *                   type: string
+ *                   description: ID of the question
+ *                 qtext:
+ *                   type: string
+ *                   description: Text of the question
+ *                 required:
+ *                   type: string
+ *                   description: Indicates whether the question is required (either "true" or "false")
+ *                 type:
+ *                   type: string
+ *                   description: Type of the question (either "question" or "profile")
+ *                 options:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       optID:
+ *                         type: string
+ *                         description: ID of the option
+ *                       opttxt:
+ *                         type: string
+ *                         description: Text of the option
+ *                       nextqID:
+ *                         type: string
+ *                         description: ID of the next question
+ *       400:
+ *         description: No questionnaireID or questionID was provided
+ *       402:
+ *         description: No data was found for the specified questionnaireID and questionID
+ *       500:
+ *         description: Internal server error
+ */
+
 router.get("/", (req, res) => { 
     // Return 400 (Bad Request) if no questionID or questionnaireID is provided
     res.status(400).json({error: "Missing required parameters: questionnaireID, questionID"});

@@ -4,6 +4,86 @@ const pool = require('../db_connect');
 const promisePool = pool.promise();
 const { parse } = require('json2csv');
 
+/**
+ * @swagger
+ * /intelliq_api/getquestionanswers/{questionnaireID}/{questionID}:
+ *   get:
+ *     summary: Get answers for a given question
+ *     description: Returns the answers to a given question
+ *     parameters:
+ *       - in: path
+ *         name: questionnaireID
+ *         description: The ID of the questionnaire
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: questionID
+ *         description: The ID of the question
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: format
+ *         description: The format to return the data in, either JSON or CSV
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum: [csv, json]
+ *     responses:
+ *       200:
+ *         description: The answers to the question
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 questionnaireID:
+ *                   type: string
+ *                 questionID:
+ *                   type: string
+ *                 answers:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       session:
+ *                         type: string
+ *                       ans:
+ *                         type: string
+ *           text/csv:
+ *             schema:
+ *               type: string
+ *       400:
+ *         description: Bad Request. Returns if no sessionID or questionnaireID is provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       402:
+ *         description: No data. Returns if no data is found for the given questionnaireID and questionID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
+
+
 router.get("/", (req, res) => {
     // Return 400 (Bad Request) if no sessionID or questionnaireID is provided
     res.status(400).json({ error: "Missing required parameters: questionnaireID, questionID" });

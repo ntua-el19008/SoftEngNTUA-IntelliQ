@@ -3,6 +3,71 @@ const router = express.Router();
 const pool = require('../db_connect');
 const promisePool = pool.promise();
 
+/**
+ * @swagger
+ * /intelliq_api/doanswer/{questionnaireID}/{questionID}/{session}/{optionID}:
+ *   post:
+ *     summary: Add an answer to the database
+ *     description: Adds an answer to a question in the database
+ *     parameters:
+ *       - in: path
+ *         name: questionnaireID
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The questionnaire ID of the answer to add
+ *       - in: path
+ *         name: questionID
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The question ID of the answer to add
+ *       - in: path
+ *         name: session
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The session ID of the answer to add
+ *       - in: path
+ *         name: optionID
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The option ID of the answer to add
+ *     responses:
+ *       200:
+ *         description: The answer was added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Answer added successfully
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Missing required parameters: questionnaireID, questionID"
+ *       500:
+ *         description: Internal error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Internal error"
+ */
+
+
 router.post("/", (req, res) => {
     // Return 400 (Bad Request) if no optionID, sessionID, questionID or questionnaireID is provided
     res.status(400).json({ error: "Missing required parameters: questionnaireID, questionID" });

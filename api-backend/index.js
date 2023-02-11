@@ -4,6 +4,8 @@ const app = express();
 const port = 9103;
 const bodyparser = require('body-parser')
 const api = require('./routes/intelliq_api')
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 //const baseurl = '/intelliQ/api';
 
@@ -11,6 +13,24 @@ const api = require('./routes/intelliq_api')
 app.use(bodyparser.json());
 app.use('/intelliq_api', api);
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+// Define the Swagger options
+const options = {
+    definition: {
+      openapi: '3.0.0',
+      info: {
+        title: 'IntelliQ API',
+        version: '0.0.1'
+      }
+    },
+    // Path to the API docs
+    apis: ['./routes/*.js', 
+           './routes/admin/*.js',]
+  };
+
+// Initialize the Swagger definition
+const swaggerSpec = swaggerJSDoc(options);
+app.use('/intelliq_api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Set up nunjucks templating engine
 const nunjucks = require('nunjucks');

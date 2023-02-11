@@ -4,6 +4,44 @@ const fs = require('fs');
 const pool = require('../../db_connect');
 const promisePool = pool.promise();
 
+/**
+ * @swagger
+ * /intelliq_api/admin/resetall:
+ *   post:
+ *     tags:
+ *      - admin
+ *     summary: Reset all tables in the database
+ *     description: Reset all tables in the database
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: failed
+ *                 reason:
+ *                   type: string
+ *                   example: Error message.
+ */
+
+
+// Reset all tables in the database
 router
     .route("/")
     .post(async (req, res) => {
