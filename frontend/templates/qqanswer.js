@@ -108,13 +108,40 @@ function fetchNext(question_result) {
         butt2.style.display = "none"; 
         //tha apantaw epitelous
 
+        var card2 = document.getElementById("card");
+        var answer = document.createElement("div");
+        answer.innerHTML = `
+            <div>
+            <form id="answers" style="text-align: center; padding: 10px 20px;">
+            <h1>Your answers
+            <h1/>
+            </form>
+            </div>
+            `;
+            card2.replaceChildren(answer);
+
+        for (var i = 0; i < answers.length; i++) {
+            var answer2 = document.createElement("div");
+            answer2.innerHTML = `
+                <div>
+                <form id="answers" style="text-align: center; padding: 10px 20px;">
+                <h2>Question ${i + 1} : ${answers[i]["qtext"]}
+                <h2/>
+                <h3>You answered : ${answers[i]["optiontxt"]}
+                <h3/>
+                </form>
+                </div>
+                `;
+                card2.appendChild(answer2);
+
+        }
 
         var butt = document.getElementById("submitButton");
         butt.style.display = "block"; 
         
     }
     else {
-        if (temp["nextq"] === undefined) {
+        if (temp["nextq"] === "NULLQ") {
             qindex += 1;
         }
         else {
