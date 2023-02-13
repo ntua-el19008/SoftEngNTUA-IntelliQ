@@ -8,7 +8,7 @@ const promisePool = pool.promise();
 /**
  * @swagger
  * /intelliq_api/admin/questionnaire_upd:
- *  put:
+ *  post:
  *    tags:
  *     - admin
  *    summary: Update a questionnaire
