@@ -104,7 +104,7 @@ router.get("/:questionnaireID/:session", async (req, res) => {
         const { questionnaireID, session } = req.params;
         // Get questionnaire id, title
         const session_query =
-        `SELECT QID as qID, ChoiceID AS ans 
+            `SELECT QID as qID, ChoiceID AS ans 
         FROM answer 
         WHERE SessionID = '${session}' AND QQID = '${questionnaireID}';`;
 
@@ -133,11 +133,11 @@ router.get("/:questionnaireID/:session", async (req, res) => {
             res.status(200).send(result);
             console.log("Get session query successful! (JSON)");
         }
-        
+
     } catch (err) {
         res.status(500).json({ error: "Internal error" });
         console.log(err);
         return;
     }
 });
-module.exports = router
+module.exports = router;

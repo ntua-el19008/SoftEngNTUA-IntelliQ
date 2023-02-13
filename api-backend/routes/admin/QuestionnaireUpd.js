@@ -277,7 +277,7 @@ router
                         return;
                     }
                 }
-                res.status(200).json({ status: "OK", message: 'Answer added successfully' });
+                res.status(200).json({ status: "OK", message: 'Questionnaire added successfully' });
                 return;
             }
             else {
