@@ -1,8 +1,10 @@
-import mysql.connector
 import subprocess
 import os
 import sys
+
 subprocess.check_call("pip install mysql-connector", shell=True)
+import mysql.connector
+
 
 # install npm packages
 os.chdir('./api-backend')
