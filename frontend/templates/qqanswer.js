@@ -102,7 +102,7 @@ function fetchNext(question_result) {
 
     answers.push(temp);
 
-    if (qindex == (questionnaireData["questions"].length - 1)) {
+    if (temp["nextq"] === "NULLQ") {
        
         var butt2 = document.getElementById("secondButton");
         butt2.style.display = "none"; 
@@ -141,16 +141,11 @@ function fetchNext(question_result) {
         
     }
     else {
-        if (temp["nextq"] === "NULLQ") {
-            qindex += 1;
-        }
-        else {
-            for (var i = 0; i < questionnaireData["questions"].length; i++) {
-                if  (questionnaireData["questions"][i]["qid"] === temp["nextq"]) {
-                    qindex = i;
-                    alert(qindex);
-                    break;
-                }
+        for (var i = 0; i < questionnaireData["questions"].length; i++) {
+            if  (questionnaireData["questions"][i]["qid"] === temp["nextq"]) {
+                qindex = i;
+                alert(qindex);
+                break;
             }
         }
         get();
