@@ -114,7 +114,7 @@ router.get("/:questionnaireID", async (req, res) => {
         let question_array = [];
         for (let i = 0; i < question_result.length; i++) {
             question_array.push(question_result[i]);
-            console.log(question_result[i]['required'].toString(start = 1, end = 1));
+            //console.log(question_result[i]['required'].toString(start = 1, end = 1));
             if (question_result[i]['required']) {
                 question_result[i]['required'] = "true";
             } else {

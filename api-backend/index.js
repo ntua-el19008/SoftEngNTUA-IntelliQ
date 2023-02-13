@@ -32,6 +32,12 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 app.use('/intelliq_api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Define endpoint to serve the Swagger document
+app.get('/intelliq_api/swagger.json', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+    });
+
 // Set up nunjucks templating engine
 const nunjucks = require('nunjucks');
 const { METHODS } = require('http');

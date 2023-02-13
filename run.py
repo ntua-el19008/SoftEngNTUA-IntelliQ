@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 subprocess.check_call("pip install mysql-connector", shell=True)
 import mysql.connector
 
@@ -14,7 +15,9 @@ cnx = mysql.connector.connect(user='root', host='localhost', password='', port=3
 # Create cursor
 cursor = cnx.cursor()
 
+
 # Execute SQL scripts
+
 with open('../data/tables.sql', 'r') as f:
     sql_script = f.read()
 
@@ -26,8 +29,10 @@ for statement in statements:
         cursor.execute(statement)
         cnx.commit()
 
-
-with open('../data/sample_data_tiny.sql', 'r') as f:
+# Insert sample or test data according to the argument
+arg = sys.argv[1] if len(sys.argv) >= 1 else ''
+filename = '../data/test_data.sql' if arg == 'test' else '../data/sample_data_tiny.sql'
+with open(filename, 'r') as f:
     sql_script = f.read()
 
 # Split the script into individual statements
