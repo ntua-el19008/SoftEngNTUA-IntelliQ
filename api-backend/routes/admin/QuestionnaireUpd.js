@@ -124,7 +124,7 @@ function check(jsonData) {
         return false;
     } else {
 
-        if (jsonData.hasOwnProperty('qqmask')) {
+        if (jsonData.hasOwnProperty('qqmask') && jsonData.qqmask.length > 0) {
             if (!(
                 typeof jsonData.qqmask === 'string' &&
                 jsonData.qqmask.match(/^@[a-zA-Z][a-zA-Z0-9]*([.-][a-zA-Z0-9]+)*\.[a-zA-Z0-9]*[a-zA-Z]$/) &&
