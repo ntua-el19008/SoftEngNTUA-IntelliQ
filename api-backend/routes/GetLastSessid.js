@@ -83,12 +83,12 @@ router.get("/", async (req, res) => {
 
         // Create result JSON object
         const result = {
-            "sessionID": session_result
+            "sessionID": session_result[0].sessID
         }
 
         // Return result as JSON or CSV
         if (req.query.format === "csv") {
-            const data_fields = ['questionnaireID', 'session', 'answers'];
+            const data_fields = ['session', 'answers'];
             const data_opts = { data_fields };
             var result_csv = parse(result, data_opts);
             res.status(200).send(result_csv);
@@ -104,4 +104,4 @@ router.get("/", async (req, res) => {
         return;
     }
 });
-module.exports = router
+module.exports = router;

@@ -124,7 +124,7 @@ function check(jsonData) {
         return false;
     } else {
 
-        if (jsonData.hasOwnProperty('qqmask')) {
+        if (jsonData.hasOwnProperty('qqmask') && jsonData.qqmask.length > 0) {
             if (!(
                 typeof jsonData.qqmask === 'string' &&
                 jsonData.qqmask.match(/^@[a-zA-Z][a-zA-Z0-9]*([.-][a-zA-Z0-9]+)*\.[a-zA-Z0-9]*[a-zA-Z]$/) &&
@@ -277,7 +277,7 @@ router
                         return;
                     }
                 }
-                res.status(200).json({ status: "OK", message: 'Answer added successfully' });
+                res.status(200).json({ status: "OK", message: 'Questionnaire added successfully' });
                 return;
             }
             else {
