@@ -6,7 +6,7 @@ const { parse } = require('json2csv');
 
 /**
  * @swagger
- * /intelliq_api/getsessionanswers/{questionnaireID}/{session}:
+ * /intelliq_api/getlastsessid:
  *   get:
  *     summary: Get last session ID
  *     description: Returns the lexicographically last session ID
