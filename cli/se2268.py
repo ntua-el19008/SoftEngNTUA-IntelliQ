@@ -1,76 +1,92 @@
 import argparse
 import requests
 import sys
-#import pandas
+import csv
+import json
 
 #SCOPES: "healthcheck", "resetall", "questionnaire_upd", "resetq", "questionnaire",
 #   "question", "doanswer", "getsessionanswers", "getquestionanswers", "admin"
 
 def print_format(res,args):
     if args.format[0]=="json":
-        #fix json print
-        print(res)
+        print(res.json())
     else:
-        #fix csv print
-        print(res)
+        decoded_content = res.content.decode('utf-8')
+        cr = csv.reader(decoded_content, delimiter=',')
+        my_list = list(cr)
+        for row in my_list:
+            print(*row, sep = ",", end='')
 
 #otan h requests.get den briskei th selida petaei exception to opoio isws prepei na kanoume catch.
 
+#json
 def healthcheck(args):
-    res = requests.get('https://localhost:8000/intelliq_api/admin/healthcheck' +'?format='+args.format[0])
-    print(res.status_code)
-    print_format(res,args)
+    res = requests.get('http://localhost:9103/intelliq_api/admin/healthcheck' +'?format='+args.format[0])
+    #print(res.status_code)
+    print(res.json())
     return 0
-        
+
+#json       
 def resetall(args):
-    res = requests.post('https://localhost:8000/intelliq_api/admin/resetall' +'?format='+args.format[0])
-    print(res.status_code)
-    print_format(res,args)
+    res = requests.post('http://localhost:9103/intelliq_api/admin/resetall' +'?format='+args.format[0])
+    #print(res.status_code)
+    print(res.json())
     return 0
   
+#json
 def questionnaire_upd(args):
-    file = {'file': open(args.source, 'rb')}
-    res = requests.post('https://localhost:8000/intelliq_api/admin/questionnaire_upd', \
-                        +'?format='+args.format[0], file=file)
-    print_format(res,args)
+    print(args.source[0])
+    file = open(args.source[0])
+    myjson = json.load(file)
+    json_data = json.dumps(myjson)
+    files = {"jsonFile": ("qqjson.json", json_data, "application/json")}
+    res = requests.post('http://localhost:9103/intelliq_api/admin/questionnaire_upd' \
+                        +'?format='+args.format[0], files=files)
+    print(res.json())
     return 0
 
+#json
 def resetq(args):
-    res = requests.post('https://localhost:8000/intelliq_api/admin/resetq/' + \
-                        args.questionnaire_id +'?format='+args.format[0])
-    print_format(res,args)
+    res = requests.post('http://localhost:9103/intelliq_api/admin/resetq/' + \
+                        args.questionnaire_id[0] +'?format='+args.format[0])
+    print(res.json())
     return 0
 
+#json/csv
 def questionnaire(args):
-    res = requests.get('https://localhost:8000/intelliq_api/questionnaire/' + \
-                       args.questionnaire_id +'?format='+args.format[0])
+    res = requests.get('http://localhost:9103/intelliq_api/questionnaire/' + \
+                       args.questionnaire_id[0] +'?format='+args.format[0])
     print_format(res,args)
     return 0
 
+#json/csv
 def question(args):
-    res = requests.get('https://localhost:8000/intelliq_api/question/'  + \
-                       args.questionnaire_id + '/' + args.question_id +'?format='+args.format[0])
+    res = requests.get('http://localhost:9103/intelliq_api/question/'  + \
+                       args.questionnaire_id[0] + '/' + args.question_id[0] +'?format='+args.format[0])
     print_format(res,args)
     return 0
-  
+
+#json 
 def doanswer(args):
-    res = requests.post('https://localhost:8000/intelliq_api/doanswer/'  + \
-                       args.questionnaire_id + '/' + args.question_id + '/' + \
-                       args.session_id + '/' + args.option_id +'?format='+args.format[0])
-    print_format(res,args)
+    res = requests.post('http://localhost:9103/intelliq_api/doanswer/'  + \
+                       args.questionnaire_id[0] + '/' + args.question_id[0] + '/' + \
+                       args.session_id[0] + '/' + args.option_id[0] +'?format='+args.format[0])
+    print(res.json())
     return 0
 
+#json/csv
 def getsessionanswers(args):
-    res = requests.get('https://localhost:8000/intelliq_api/doanswer/' + \
-                       args.questionnaire_id + '/' + \
-                       args.session_id + '?format='+args.format[0])
+    res = requests.get('http://localhost:9103/intelliq_api/getsessionanswers/' + \
+                       args.questionnaire_id[0] + '/' + \
+                       args.session_id[0] + '?format='+args.format[0])
     print_format(res,args)
     return 0
 
+#json/csv
 def getquestionanswers(args):
-    res = requests.get('https://localhost:8000/intelliq_api/doanswer/'  + \
-                       args.questionnaire_id + '/' + \
-                       args.question_id + '?format='+args.format[0])
+    res = requests.get('http://localhost:9103/intelliq_api/getquestionanswers/'  + \
+                       args.questionnaire_id[0] + '/' + \
+                       args.question_id[0] + '?format='+args.format[0])
     print_format(res,args)
     return 0
 
