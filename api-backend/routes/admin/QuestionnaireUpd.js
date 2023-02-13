@@ -228,11 +228,15 @@ function showqueries(jsonstr) {
     var question_queries = [];
     var option_queries = [];
     for (var i = 0; i < qq.questions.length; i++) {
-        var mandatory = "false";
-        var profile = "false";
+        var mandatory = false;
+        var profile = false;
 
-        if (qq.questions[i].required === "TRUE") mandatory = "true";
-        if (qq.questions[i].type === "profile") profile = "true";
+        if (qq.questions[i].required === "TRUE") {
+            mandatory = true;
+        }
+        if (qq.questions[i].type === "profile") {
+            profile = true;
+        }
 
         var q_query = "INSERT INTO Question (QID, QQID, Qtext, Mandatory, Personal) VALUES ('" + qq.questions[i].qID + "', '" + qq.questionnaireID + "', '" + qq.questions[i].qtext + "', " + mandatory + ", " + profile + ");";
         question_queries.push(q_query);

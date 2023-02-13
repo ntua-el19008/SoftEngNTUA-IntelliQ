@@ -40,29 +40,14 @@ Questions & Options
 		<label style="font-size: 1.2em;">Question text</label><br>
 		<input type="text" name="qtext" placeholder="Max length 255 characters" /><br> <br>
 		<label style="font-size: 1.2em;">Is the question mandatory?</label><br>
-		<form id="type">
-			<label for="TRUE">TRUE</label>
-			<input type="radio" id="TRUE" name="mandatory" value="TRUE">
-			<br>
-			<label for="FALSE">FALSE</label>
-			<input type="radio" id="FALSE" name="mandatory" value="FALSE">
-			<br><br>
-		</form>
+		<input type="text" name="mandatory" placeholder="TRUE or FALSE" /><br>
 		<label style="font-size: 1.2em;">Type of question</label><br>
-		<form id="type">
-			<label for="profile">Profile</label>
-			<input type="radio" id="profile" name="type" value="profile">
-			<br>
-			<label for="question">Question</label>
-			<input type="radio" id="question" name="type" value="question">
-			<br><br>
-		</form>
+		<input type="text" name="type" placeholder="profile or question" /><br><br>
 		<input type="button" value="+" class="btn btn-danger" onclick="addOption(1)"
 			style="margin: 0 auto; display: block;" /><br>
 		<div id="optionsContainer1">
 			<div id="option1">
 				<label style="font-size: 1.2em;">Option ID</label><br>
-				<label style="font-size: 1em;">(insert "&lt;txtbox&gt;" for a textbox, only 1 option)</label><br>
 				<input type="text" name="opt" placeholder="Max length 10 characters" /><br>
 				<label style="font-size: 1.2em;">Option Text</label><br>
 				<input type="text" name="opttxt" placeholder="Max length 255 characters" /><br>

@@ -16,29 +16,14 @@ function addQuestion() {
             <label style="font-size: 1.2em;">Question text</label><br>
             <input type="text" name="qtext" placeholder="Max length 255 characters"/><br> <br>
             <label style="font-size: 1.2em;">Is the question mandatory?</label><br>
-            <form id="type">
-                <label for="TRUE">TRUE</label>
-                <input type="radio" id="TRUE" name="mandatory" value="TRUE">
-                <br>
-                <label for="FALSE">FALSE</label>
-                <input type="radio" id="FALSE" name="mandatory" value="FALSE">
-                <br><br>
-            </form>
+            <input type="text" name="mandatory" placeholder="TRUE or FALSE" /><br>
             <label style="font-size: 1.2em;">Type of question</label><br>
-            <form id="type">
-                <label for="profile">Profile</label>
-                <input type="radio" id="profile" name="type" value="profile">
-                <br>
-                <label for="question">Question</label>
-                <input type="radio" id="question" name="type" value="question">
-                <br><br>
-            </form>
+            <input type="text" name="type" placeholder="profile or question" /><br><br>
             <input type="button" value="+" class="btn btn-danger" onclick="addOption(${questionCount})"
 			style="margin: 0 auto; display: block;" /><br>
             <div id="optionsContainer${questionCount}">
             <div id="option1">
                 <label style="font-size: 1.2em;">Option ID</label><br>
-                <label style="font-size: 1em;">(insert "&lt;txtbox&gt;" for a textbox, only 1 option)</label><br>
                 <input type="text" name="opt" placeholder="Max length 10 characters"/><br>
                 <label style="font-size: 1.2em;">Option Text</label><br>
                 <input type="text" name="opttxt" placeholder="Max length 255 characters"/><br>
@@ -89,36 +74,26 @@ function parseQuestions() {
     var questionData = [];
     for (var i = 0; i < questions.length; i++) {
         if (questions[i].id.startsWith("question")) {
-            var typeButtons = document.getElementsByName("type");
-            var selectedValuetype;
-
-            for (var j = 0; j < typeButtons.length; j++) {
-                if (typeButtons[j].checked) {
-                    selectedValuetype = typeButtons[j].value;
-                    break;
-                }
-            }
-
-            var mandatoryButtons = document.getElementsByName("mandatory");
-            var selectedValuemand;
-            for (var j = 0; j < mandatoryButtons.length; j++) {
-                if (mandatoryButtons[j].checked) {
-                    selectedValuemand = mandatoryButtons[j].value;
-                    break;
-                }
-            }
-
             var inputs = questions[i].getElementsByTagName("input");
+
             var qid = "";
+            var qtext = "";
+            var mand = "";
             var questionAdded = false;
             for (var j = 0; j < inputs.length; j++) {
                 if (inputs[j].name === "qid") {
                     qid = inputs[j].value;
                 }
                 if (inputs[j].name === "qtext") {
+                    qtext = inputs[j].value;
+                }
+                if (inputs[j].name === "mandatory") {
+                    mand = inputs[j].value;
+                }
+                if (inputs[j].name === "type") {
                     if (!questionAdded) {
-                        if (qid !== "" && inputs[j].value !== "" && selectedValuemand !== undefined && selectedValuetype !== undefined) {
-                            questionData.push({ "qID": qid, "qtext": inputs[j].value, "required": selectedValuemand, "type": selectedValuetype });
+                        if (qid !== "" && qtext !== "" && mand !== "" && inputs[j].value !== "" && mand.match(/^(TRUE|FALSE)$/) && inputs[j].value.match(/^(profile|question)$/)) {
+                            questionData.push({ "qID": qid, "qtext": qtext, "required": mand, "type": inputs[j].value });
                             questionAdded = true;
                         } else {
                             document.getElementById("error-box").style.display = "flex";
