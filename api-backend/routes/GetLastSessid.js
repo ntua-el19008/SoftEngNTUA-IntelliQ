@@ -85,7 +85,6 @@ router.get("/", async (req, res) => {
         const result = {
             "sessionID": session_result[0].sessID
         }
-        console.log(result);
 
         // Return result as JSON or CSV
         if (req.query.format === "csv") {
