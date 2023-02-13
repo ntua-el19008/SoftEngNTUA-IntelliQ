@@ -7,5 +7,6 @@ router.use("/questionnaire", require("./Questionnaire"));
 router.use("/question", require("./Question"));
 router.use("/getsessionanswers", require("./GetSessionAnswers"));
 router.use("/getquestionanswers", require("./GetQuestionAnswers"));
+router.use("/getlastsessid", require("./GetLastSessid"));
 
 module.exports = router
