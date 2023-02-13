@@ -2,7 +2,7 @@ var questionnaireData = JSON.parse(sessionStorage.getItem('questionnaireData'));
 var qindex = 0;
 var question_result = {};
 var answers = [];
-var session="gfgf";
+var session;
 
 //fetching first question when page loads
 function display() {
@@ -82,11 +82,18 @@ function get() {
 
 function fetchNext(question_result) {
     //take the chosen option and append it to answers
-    var optindex = 0;
+    var optindex = -1;
     var ele = document.getElementsByName('exampleRadios'); 
     for(i = 0; i < ele.length; i++) {
         if (ele[i].checked) {
             optindex = i;
+        }
+    }
+    //if not answered
+    if (ele == -1) {
+        //if question is mandatory request answer
+        if (question_result["required"] == true) {
+
         }
     }
 
@@ -144,7 +151,6 @@ function fetchNext(question_result) {
         for (var i = 0; i < questionnaireData["questions"].length; i++) {
             if  (questionnaireData["questions"][i]["qid"] === temp["nextq"]) {
                 qindex = i;
-                alert(qindex);
                 break;
             }
         }
@@ -156,12 +162,29 @@ function fetchNext(question_result) {
 
 //this function actually submits the aswers
 function submit() {
-    const questionnaireID = questionnaireData["questionnaireID"];
-    for (var i = 0; i < answers.length; i++) {
-        var qid = answers[i]["qID"];
-        var opt = answers[i]["optID"];
-        fetch(`/intelliq_api/doanswer/${questionnaireID}/${qid}/${session}/${opt}`, {method: 'POST'})
-        .then(response => response.json())
+    fetch(`/intelliq_api/getlastsessid/`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.hasOwnProperty("error")) {
+        }
+        else {
+            session = data["sessionID"];
+            var count = session.match(/\d*$/);
+            session = session + 1;
+            //alert(data["sessionID"]);
+            session = session.substr(0, count.index) + (++count[0]);
+            //console.log(response);
+            alert(session);
+            const questionnaireID = questionnaireData["questionnaireID"];
+            for (var i = 0; i < answers.length; i++) {
+                var qid = answers[i]["qID"];
+                var opt = answers[i]["optID"];
+                fetch(`/intelliq_api/doanswer/${questionnaireID}/${qid}/${session}/${opt}`, {method: 'POST'})
+                .then(response => response.json())
+                .catch(error => console.error(error));
+            }
+        }}
+        )
         .catch(error => console.error(error));
-    }
+    window.location.href = "/";
 }
