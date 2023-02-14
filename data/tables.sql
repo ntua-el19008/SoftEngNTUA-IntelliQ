@@ -5,7 +5,7 @@ USE toulou;
 DROP TABLE IF EXISTS Questionnaire;
 CREATE TABLE Questionnaire (
 QQID char(10) PRIMARY KEY,
-Title varchar(255) ,
+Title varchar(255) NOT NULL,
 Mask varchar(255)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -14,8 +14,8 @@ CREATE TABLE Question (
 QID char(10) NOT NULL,
 QQID char(10) NOT NULL,
 Qtext varchar(255),
-Mandatory bit,
-Personal bit,
+Mandatory bit NOT NULL,
+Personal bit NOT NULL,
 CONSTRAINT QuestionQuestionnaire FOREIGN KEY (QQID) REFERENCES Questionnaire (QQID) ON DELETE RESTRICT ON UPDATE CASCADE,
 PRIMARY KEY (QID, QQID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

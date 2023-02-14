@@ -70,25 +70,25 @@ const promisePool = pool.promise();
 
 router.post("/", (req, res) => {
     // Return 400 (Bad Request) if no optionID, sessionID, questionID or questionnaireID is provided
-    res.status(400).json({ error: "Missing required parameters: questionnaireID, questionID" });
+    res.status(400).json({ error: "Missing required parameters: questionnaireID, questionID, sessionID, optionID" });
     return;
 });
 
 router.post("/:questionnaireID", (req, res) => {
     // Return 400 (Bad Request) if no optionID, sessionID, questionID or questionnaireID is provided
-    res.status(400).json({ error: "Missing required parameter: sessionID" });
+    res.status(400).json({ error: "Missing required parameter: questionID, sessionID, optionID" });
     return;
 });
 
 router.post("/:questionnaireID/:questionID", (req, res) => {
     // Return 400 (Bad Request) if no optionID, sessionID, questionID or questionnaireID is provided
-    res.status(400).json({ error: "Missing required parameter: sessionID" });
+    res.status(400).json({ error: "Missing required parameter: sessionID, optionID" });
     return;
 });
 
 router.post("/:questionnaireID/:questionID/:session", (req, res) => {
     // Return 400 (Bad Request) if no optionID, sessionID, questionID or questionnaireID is provided
-    res.status(400).json({ error: "Missing required parameter: sessionID" });
+    res.status(400).json({ error: "Missing required parameter: optionID" });
     return;
 });
 
@@ -128,4 +128,4 @@ router.post("/:questionnaireID/:questionID/:session/:optionID", async (req, res)
     }
 });
 
-module.exports = router
+module.exports = router;

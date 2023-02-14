@@ -217,7 +217,12 @@ function showqueries(jsonstr) {
         console.log("good json");
     }
 
-    var qq_query = "INSERT INTO Questionnaire (QQID, Title, Mask) VALUES ('" + qq.questionnaireID + "', '" + qq.questionnaireTitle + "', '" + qq.qqmask + "');";
+    if (qq.mask === undefined) {
+        var qq_query = "INSERT INTO Questionnaire (QQID, Title) VALUES ('" + qq.questionnaireID + "', '" + qq.questionnaireTitle + "');";
+    }
+    else {
+        var qq_query = "INSERT INTO Questionnaire (QQID, Title, Mask) VALUES ('" + qq.questionnaireID + "', '" + qq.questionnaireTitle + "', '" + qq.qqmask + "');";
+    }
 
     var keywords_queries = [];
     for (var i = 0; i < qq.keywords.length; i++) {
