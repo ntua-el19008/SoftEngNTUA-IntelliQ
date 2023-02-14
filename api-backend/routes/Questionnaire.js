@@ -128,6 +128,9 @@ router.get("/:questionnaireID", async (req, res) => {
             }
         }
 
+        if (questionnaire_result[0].mask == null) {
+            questionnaire_result[0].mask = "";
+        }
         // Create result JSON object
         const result = {
             "questionnaireID": questionnaire_result[0].questionnaireID,
