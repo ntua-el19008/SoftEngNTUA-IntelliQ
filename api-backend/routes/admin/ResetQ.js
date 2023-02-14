@@ -79,7 +79,7 @@ router
             await connection.query(participant_query);
             await connection.query(answers_query);
 
-            res.status(400).json({ status: "OK" });
+            res.status(200).json({ status: "OK" });
             console.log("Questionnaire reset successful!");
         }
         catch (err) {
