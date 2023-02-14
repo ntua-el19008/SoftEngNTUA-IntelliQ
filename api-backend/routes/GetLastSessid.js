@@ -74,7 +74,7 @@ router.get("/", async (req, res) => {
             ORDER BY CAST(REVERSE(CAST(REVERSE(sessID) AS SIGNED)) AS SIGNED)
             DESC
             LIMIT 1;`;
-        
+
         //ORDER BY sessID DESC
         const [session_result, _fields] = await promisePool.query(session_query);
         if (session_result.length === 0) {
@@ -83,11 +83,32 @@ router.get("/", async (req, res) => {
             return;
         }
 
+        var sessid = session_result[0].sessID;
+        var final_sessid = sessid;
+
+        if (sessid.endsWith("9")) {
+            const match = sessid.match(/(\d+)$/);
+            if (match) {
+                const numericPart = match[1];
+                const newNumericPart = String(parseInt(numericPart) + 1);
+                sessid = sessid.replace(/(\d+)$/, newNumericPart.padStart(numericPart.length, "0"));
+            } else {
+                sessid += "1";
+            }
+            const check_query =
+                `SELECT * FROM Participant 
+            WHERE SessionID = '${sessid}'`;
+
+            const [check_result, _fields] = await promisePool.query(check_query);
+            if (check_result.length !== 0) {
+                final_sessid = sessid;
+            }
+        }
+
         // Create result JSON object
         const result = {
-            "sessionID": session_result[0].sessID
+            "sessionID": final_sessid
         }
-        console.log(result);
         // Return result as JSON or CSV
         if (req.query.format === "csv") {
             const data_fields = ['session', 'answers'];
