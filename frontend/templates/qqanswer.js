@@ -226,9 +226,12 @@ function getSession() {
     .then(response => response.json())
     .then(data => {
         if (data.hasOwnProperty("error")) {
+            if (data["error"] == "No data") {
+                new_session.push("S1");
+                submit(new_session[0]);
+            }
         }
         else {
-            session = data["sessionID"];
             var count = session.match(/\d*$/);
             new_session.push(session.substr(0, count.index) + (++count[0]));
             submit(new_session[0]);
