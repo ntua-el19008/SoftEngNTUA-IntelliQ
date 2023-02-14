@@ -5,6 +5,7 @@ const upload = multer();
 const pool = require('../../db_connect');
 const promisePool = pool.promise();
 
+
 /**
  * @swagger
  * /intelliq_api/admin/questionnaire_upd:
@@ -13,84 +14,15 @@ const promisePool = pool.promise();
  *     - admin
  *    summary: Update a questionnaire
  *    description: Updates the questionnaire details in the database
- *    consumes:
- *      - application/json
- *    parameters:
- *      - name: questionnaire
- *        in: body
- *        required: true
- *        schema:
- *          type: object
- *          required:
- *            - questionnaireID
- *            - questionnaireTitle
- *            - keywords
- *            - questions
- *          properties:
- *            questionnaireID:
- *              type: string
- *              description: Unique identifier for the questionnaire
- *              maxLength: 10
- *            questionnaireTitle:
- *              type: string
- *              description: Title of the questionnaire
- *              maxLength: 255
- *            keywords:
- *              type: array
- *              description: Keywords associated with the questionnaire
- *              items:
+ *    requestBody:
+ *      content:
+ *        multipart/form-data:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              jsonFile:
  *                type: string
- *                maxLength: 255
- *            questions:
- *              type: array
- *              description: List of questions in the questionnaire
- *              items:
- *                type: object
- *                required:
- *                  - qID
- *                  - qtext
- *                  - required
- *                  - type
- *                  - options
- *                properties:
- *                  qID:
- *                    type: string
- *                    description: Unique identifier for the question
- *                    maxLength: 10
- *                  qtext:
- *                    type: string
- *                    description: Text of the question
- *                    maxLength: 255
- *                  required:
- *                    type: string
- *                    description: Indicates if the question is required or not
- *                    enum: [TRUE, FALSE]
- *                  type:
- *                    type: string
- *                    description: Type of the question (profile or question)
- *                    enum: [profile, question]
- *                  options:
- *                    type: array
- *                    description: List of options for the question
- *                    items:
- *                      type: object
- *                      required:
- *                        - optID
- *                        - opttxt
- *                        - nextqID
- *                      properties:
- *                        optID:
- *                          type: string
- *                          description: Unique identifier for the option
- *                          maxLength: 10
- *                        opttxt:
- *                          type: string
- *                          description: Text of the option
- *                          maxLength: 255
- *                        nextqID:
- *                          type: string
- *                          description: Identifier for the next question to be asked based on this option
- *                          maxLength: 10
+ *                format: binary
  *    responses:
  *      200:
  *        description: Successful operation
