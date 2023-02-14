@@ -48,13 +48,14 @@ function get() {
     var showq = document.createElement("div");
     showq.innerHTML = `
     <div>
-    <form id="questionnaireIntro" style="text-align: center; padding: 10px 20px;">
+    <form id="questionnaireIntro" style="text-align: center;">
     <h2>${question["qtext"]}
     <h2/>
     </form>
     </div>
     `;
     var questionContainer = document.getElementById("card");
+    questionContainer.style.backgroundColor = "lightgrey";
     questionContainer.replaceChildren(showq);
     const questionID =  question["qid"];
     const questionnaireID = questionnaireData["questionnaireID"];
@@ -75,23 +76,23 @@ function get() {
 
             for (var i = 0; i < question_result["options"].length; i++) {
                 var option = document.createElement("div");
+                //<label class="form-check-label" for="exampleRadios1" style="display: inline-block; vertical-align: top; text-align: center;">
                 option.innerHTML = `
                 
-                <div class="table-responsive" > 
-                   
-                        <div class="form-check" >
-                            <input class="form-check-input"  type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                            <label class="form-check-label" for="exampleRadios1">
-                            ${ question_result["options"][i]["opttxt"]}
-                            </label>
-                        </div> 
-                </div>
+                    <div class="form-check" style="text-align: center;">
+                    <label><input class="form-check-input"  type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                        ${ question_result["options"][i]["opttxt"]}
+                        </label>
+                    </div> 
+
                 `;
                 questionContainer.appendChild(option);
             }
+            questionContainer.style.textAlign = "center";
             var butt = document.createElement("div");
             butt.innerHTML = `
                 <div>
+                <br>
                 <button id="secondButton" class="btn btn-danger"  onclick=" fetchNext(question_result)"
                         style="margin: 0 auto; display: block;">Next</button>
                 </div>`;
@@ -126,6 +127,12 @@ function fetchNext(question_result) {
                 return;
             }
             else {
+                for (var i = 0; i < questionnaireData["questions"].length; i++) {
+                    if  (questionnaireData["questions"][i]["qid"] === question_result["options"][0]["nextqID"]) {
+                        qindex = i;
+                        break;
+                    }
+                }
                 get();
                 return;
             }
@@ -223,7 +230,6 @@ function getSession() {
         else {
             session = data["sessionID"];
             var count = session.match(/\d*$/);
-            ++count[0];
             new_session.push(session.substr(0, count.index) + (++count[0]));
             submit(new_session[0]);
         }

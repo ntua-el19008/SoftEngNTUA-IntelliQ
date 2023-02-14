@@ -10,9 +10,9 @@ Answer Questionnaire
 <div id="header">
 
 </div>
-<div class="card" id="card-container">         
+<div class="card" id="card-container" style="text-align: center; height: 370px; width: 80%; margin: 0 auto;">         
     <div class="card-body" id="card">
-        <div class="table-responsive" style="text-align: center; padding: 10px 20px;"> 
+        <div class="table-responsive" style="text-align: center;"> 
             <div id="mask" style="display: none;">
                 <h2>Enter your email</h2>
                 <input type="text" id="mail" placeholder="This field is required"/>
@@ -26,6 +26,7 @@ Answer Questionnaire
     <button id="submitButton" class="btn btn-danger"  onclick="getSession()"
     style="margin: 0 auto; display: none;">Submit</button>
 </div>
+</div>
 <br/>
 
 
@@ -33,8 +34,6 @@ Answer Questionnaire
         //call after page loaded
         window.onload = display(); 
     </script>
-
-
 
 
 {% endblock content %}
