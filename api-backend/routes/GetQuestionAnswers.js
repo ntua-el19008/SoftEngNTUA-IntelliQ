@@ -108,7 +108,7 @@ router.get("/:questionnaireID/:questionID", async (req, res) => {
         const [answer_result, _fields] = await promisePool.query(answers_query, [questionnaireID]);
         if (answer_result.length === 0) {
             res.status(402).json({ error: "No data" });
-            console.log("No Question with that QQID and QID was found.");
+            console.log("No Question with that QQID and QID was found, or Questionnaire has no answers.");
             return;
         }
 

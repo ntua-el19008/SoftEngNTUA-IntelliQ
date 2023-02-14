@@ -5,5 +5,6 @@ router.use("/healthcheck", require("./Healthcheck"));
 router.use("/questionnaire_upd", require("./QuestionnaireUpd"));
 router.use("/resetall", require("./ResetAll"));
 router.use("/resetq", require("./ResetQ"));
+router.use("/insert_testdata", require("./insertTestData"));
 
 module.exports = router;
