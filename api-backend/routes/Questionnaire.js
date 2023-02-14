@@ -93,7 +93,7 @@ router.get("/:questionnaireID", async (req, res) => {
     try {
         const { questionnaireID } = req.params;      
         // Get questionnaire id, title
-        const questionnaire_query = `SELECT QQID AS questionnaireID, Title AS questionnaireTitle FROM Questionnaire WHERE QQID = '${questionnaireID}';`;
+        const questionnaire_query = `SELECT QQID AS questionnaireID, Title AS questionnaireTitle, Mask AS mask FROM Questionnaire WHERE QQID = '${questionnaireID}';`;
         const [questionnaire_result, _fields] = await promisePool.query(questionnaire_query, [questionnaireID]);
         if (questionnaire_result.length === 0) {
             res.status(402).json({ error: "No data" });
@@ -132,6 +132,7 @@ router.get("/:questionnaireID", async (req, res) => {
         const result = {
             "questionnaireID": questionnaire_result[0].questionnaireID,
             "questionnaireTitle": questionnaire_result[0].questionnaireTitle,
+            "mask": questionnaire_result[0].mask,
             "keywords": keyword_array,
             "questions": question_array
         }

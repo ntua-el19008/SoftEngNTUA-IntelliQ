@@ -37,6 +37,7 @@ function fetchQuestionnaire(){
                 questionnaire_result = {
                     "questionnaireID": questionnaireID,
                     "questionnaireTitle": title,
+                    "mask": data["mask"],
                     "keywords": data["keywords"],
                     "questions": data["questions"]
                 }

@@ -10,25 +10,29 @@ Answer Questionnaire
 <div id="header">
 
 </div>
-<script>
-    //call after page loaded
-    window.onload = display(); 
-</script>
 <div class="card" id="card-container">         
     <div class="card-body" id="card">
-        <div class="table-responsive"> 
+        <div class="table-responsive" style="text-align: center; padding: 10px 20px;"> 
+            <div id="mask" style="display: none;">
+                <h2>Enter your email</h2>
+                <input type="text" id="mail" placeholder="This field is required"/>
+            </div><br></br>
             <div>
-                <button id="beginButton" class="btn btn-danger"  onclick="get()"
-                style="margin: 0 auto; display: block;">Begin</button>
+                <button id="beginButton" class="btn btn-danger"  onclick="checkMask()"
+                style="margin: 0 auto; display: none;">Begin</button>
             </div>
         </div>
     </div>
     <button id="submitButton" class="btn btn-danger"  onclick="getSession()"
-                style="margin: 0 auto; display: none;">Submit</button>
+    style="margin: 0 auto; display: none;">Submit</button>
 </div>
 <br/>
 
 
+    <script>
+        //call after page loaded
+        window.onload = display(); 
+    </script>
 
 
 

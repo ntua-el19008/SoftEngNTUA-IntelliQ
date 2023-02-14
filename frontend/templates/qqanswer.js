@@ -2,11 +2,26 @@ var questionnaireData = JSON.parse(sessionStorage.getItem('questionnaireData'));
 var qindex = 0;
 var question_result = {};
 var answers = [];
-var session;
+
+function checkMask() {
+    if (questionnaireData["mask"] === "") {
+        get();
+    }
+    else {
+        var input = document.getElementById("mail");
+        if (!input.value.includes(questionnaireData["mask"])) {
+           alert("You are not allowed to answer");
+           window.location.href = "/";
+        }
+        else {
+            get();
+        }
+    }
+}
+
 
 //fetching first question when page loads
-function display() {
-    
+function display() {  
     var title = questionnaireData["questionnaireTitle"];
     var question = document.createElement("div");
     question.innerHTML = `
@@ -19,6 +34,12 @@ function display() {
     `;
     var questionContainer = document.getElementById("header");
     questionContainer.appendChild(question);
+    if (questionnaireData["mask"] !== "") {
+        var mailspace = document.getElementById("mask");
+        mailspace.style.display = "block";
+    }
+    var butt = document.getElementById("beginButton");
+       butt.style.display = "block";
 }
 
 //this function pulls the options for every question and displays them
@@ -90,15 +111,12 @@ function fetchNext(question_result) {
             optindex = i;
         }
     }
-    //alert(question_result["required"]);
     //if not answered check whether mandatory
     if (optindex === -1) {
-        //alert("in if");
         //if question is mandatory request answer
-        if (question_result["required"] === false) {
+        if (question_result["required"] === "true") {
             alert("This question is required!");
             get();
-          //  return;
         }
         else {
             qindex = qindex + 1;
@@ -107,8 +125,6 @@ function fetchNext(question_result) {
         }
     }
     else {
-
-        
         //if answered
         var temp = {
             "questionnaireID": question_result["questionnaireID"],
@@ -172,11 +188,8 @@ function fetchNext(question_result) {
     }
 }
 
-
-
 //this function actually submits the aswers
 function submit(sessionID) {
-    alert(sessionID);
     const questionnaireID = questionnaireData["questionnaireID"];
     for (var i = 0; i < answers.length; i++) {
         var qid = answers[i]["qID"];
@@ -196,7 +209,6 @@ function getSession() {
     .then(response => response.json())
     .then(data => {
         if (data.hasOwnProperty("error")) {
-            alert("calla submit");
         }
         else {
             session = data["sessionID"];
