@@ -70,10 +70,12 @@ router.get("/", async (req, res) => {
     try {
         const session_query =
             `SELECT SessionID as sessID
-        FROM Participant 
-        ORDER BY sessID DESC
-        LIMIT 1;`;
-
+            FROM Participant 
+            ORDER BY CAST(REVERSE(CAST(REVERSE(sessID) AS SIGNED)) AS SIGNED)
+            DESC
+            LIMIT 1;`;
+        
+        //ORDER BY sessID DESC
         const [session_result, _fields] = await promisePool.query(session_query);
         if (session_result.length === 0) {
             res.status(402).json({ error: "No data" });
@@ -85,7 +87,7 @@ router.get("/", async (req, res) => {
         const result = {
             "sessionID": session_result[0].sessID
         }
-
+        console.log(result);
         // Return result as JSON or CSV
         if (req.query.format === "csv") {
             const data_fields = ['session', 'answers'];

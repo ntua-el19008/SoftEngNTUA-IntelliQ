@@ -3,6 +3,7 @@ var qindex = 0;
 var question_result = {};
 var answers = [];
 
+//function that checks the optional mask given
 function checkMask() {
     if (questionnaireData["mask"] === "") {
         get();
@@ -18,7 +19,6 @@ function checkMask() {
         }
     }
 }
-
 
 //fetching first question when page loads
 function display() {  
@@ -117,14 +117,22 @@ function fetchNext(question_result) {
         if (question_result["required"] === "true") {
             alert("This question is required!");
             get();
+            return
         }
         else {
             qindex = qindex + 1;
-            get();
-            return;
+            if (qindex == questionnaireData["questions"].length) {
+                getAnswers();
+                return;
+            }
+            else {
+                get();
+                return;
+            }
         }
     }
     else {
+
         //if answered
         var temp = {
             "questionnaireID": question_result["questionnaireID"],
@@ -139,42 +147,7 @@ function fetchNext(question_result) {
         answers.push(temp);
         
         if (temp["nextq"] === "NULLQ") {
-            
-            var butt2 = document.getElementById("secondButton");
-            butt2.style.display = "none"; 
-            //tha apantaw epitelous
-            
-            var card2 = document.getElementById("card");
-            var answer = document.createElement("div");
-            answer.innerHTML = `
-            <div>
-            <form id="answers" style="text-align: center; padding: 10px 20px;">
-            <h1>Your answers
-            <h1/>
-            </form>
-            </div>
-            `;
-            card2.replaceChildren(answer);
-            
-            for (var i = 0; i < answers.length; i++) {
-                var answer2 = document.createElement("div");
-                answer2.innerHTML = `
-                <div>
-                <form id="answers" style="text-align: center; padding: 10px 20px;">
-                <h2>Question ${i + 1} : ${answers[i]["qtext"]}
-                <h2/>
-                <h3>You answered : ${answers[i]["optiontxt"]}
-                <h3/>
-                </form>
-                </div>
-                `;
-                card2.appendChild(answer2);
-                
-            }
-            
-            var butt = document.getElementById("submitButton");
-            butt.style.display = "block"; 
-            
+            getAnswers();
         }
         else {
             for (var i = 0; i < questionnaireData["questions"].length; i++) {
@@ -185,7 +158,44 @@ function fetchNext(question_result) {
             }
             get();
         }
+        
     }
+}
+    
+//
+function getAnswers() {
+    var butt2 = document.getElementById("secondButton");
+    butt2.style.display = "none"; 
+    var card2 = document.getElementById("card");
+    var answer = document.createElement("div");
+    answer.innerHTML = `
+    <div>
+    <form id="answers" style="text-align: center; padding: 10px 20px;">
+    <h1>Your answers
+    <h1/>
+    </form>
+    </div>
+    `;
+    card2.replaceChildren(answer);
+    
+    for (var i = 0; i < answers.length; i++) {
+        var answer2 = document.createElement("div");
+        answer2.innerHTML = `
+        <div>
+        <form id="answers" style="text-align: center; padding: 10px 20px;">
+        <h2>Question ${i + 1} : ${answers[i]["qtext"]}
+        <h2/>
+        <h3>You answered : ${answers[i]["optiontxt"]}
+        <h3/>
+        </form>
+        </div>
+        `;
+        card2.appendChild(answer2);
+        
+    }
+    
+    var butt = document.getElementById("submitButton");
+    butt.style.display = "block"; 
 }
 
 //this function actually submits the aswers
