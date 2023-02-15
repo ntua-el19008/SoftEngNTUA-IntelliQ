@@ -22,14 +22,14 @@ def print_format(res,args):
 #json
 def healthcheck(args):
     res = requests.get('http://localhost:9103/intelliq_api/admin/healthcheck' +'?format='+args.format[0])
-    #print(res.status_code)
+    print(res.status_code)
     print(res.json())
     return 0
 
 #json       
 def resetall(args):
     res = requests.post('http://localhost:9103/intelliq_api/admin/resetall' +'?format='+args.format[0])
-    #print(res.status_code)
+    print(res.status_code)
     print(res.json())
     return 0
   
@@ -42,6 +42,7 @@ def questionnaire_upd(args):
     files = {"jsonFile": ("qqjson.json", json_data, "application/json")}
     res = requests.post('http://localhost:9103/intelliq_api/admin/questionnaire_upd' \
                         +'?format='+args.format[0], files=files)
+    print(res.status_code)
     print(res.json())
     return 0
 
@@ -49,6 +50,7 @@ def questionnaire_upd(args):
 def resetq(args):
     res = requests.post('http://localhost:9103/intelliq_api/admin/resetq/' + \
                         args.questionnaire_id[0] +'?format='+args.format[0])
+    print(res.status_code)
     print(res.json())
     return 0
 
@@ -56,6 +58,7 @@ def resetq(args):
 def questionnaire(args):
     res = requests.get('http://localhost:9103/intelliq_api/questionnaire/' + \
                        args.questionnaire_id[0] +'?format='+args.format[0])
+    print(res.status_code)
     print_format(res,args)
     return 0
 
@@ -63,6 +66,7 @@ def questionnaire(args):
 def question(args):
     res = requests.get('http://localhost:9103/intelliq_api/question/'  + \
                        args.questionnaire_id[0] + '/' + args.question_id[0] +'?format='+args.format[0])
+    print(res.status_code)
     print_format(res,args)
     return 0
 
@@ -71,6 +75,7 @@ def doanswer(args):
     res = requests.post('http://localhost:9103/intelliq_api/doanswer/'  + \
                        args.questionnaire_id[0] + '/' + args.question_id[0] + '/' + \
                        args.session_id[0] + '/' + args.option_id[0] +'?format='+args.format[0])
+    print(res.status_code)
     print(res.json())
     return 0
 
@@ -79,6 +84,7 @@ def getsessionanswers(args):
     res = requests.get('http://localhost:9103/intelliq_api/getsessionanswers/' + \
                        args.questionnaire_id[0] + '/' + \
                        args.session_id[0] + '?format='+args.format[0])
+    print(res.status_code)
     print_format(res,args)
     return 0
 
@@ -87,6 +93,7 @@ def getquestionanswers(args):
     res = requests.get('http://localhost:9103/intelliq_api/getquestionanswers/'  + \
                        args.questionnaire_id[0] + '/' + \
                        args.question_id[0] + '?format='+args.format[0])
+    print(res.status_code)
     print_format(res,args)
     return 0
 
