@@ -11,12 +11,12 @@ const path = require('path');
  *  post:
  *    tags: 
  *     - admin
- *    description: Insert test data into the database
+ *    description: Insert sample data into the database, after resetting the database
  *    produces:
  *      - application/json
  *    responses:
  *      200:
- *        description: Successfully inserted test data
+ *        description: Successfully inserted sample data
  *        content:
  *          application/json:
  *            schema:
@@ -24,7 +24,7 @@ const path = require('path');
  *              properties:
  *                success:
  *                  type: boolean
- *                  description: Indicates if the test data insertion was successful or not
+ *                  description: Indicates if the sample data insertion was successful or not
  *      500:
  *        description: Internal server error
  *        content:
@@ -34,7 +34,7 @@ const path = require('path');
  *              properties:
  *                success:
  *                  type: boolean
- *                  description: Indicates if the test data insertion was successful or not
+ *                  description: Indicates if the sample data insertion was successful or not
  *                error:
  *                  type: object
  *                  properties:
@@ -61,11 +61,12 @@ const path = require('path');
 
 router.post("/", async (req, res) => {
     try {
-      // Read SQL files for reseting the database and inserting test data
+      // Read SQL files for reseting the database and inserting sample data,
+      // and split the files into separate statements
       const tablesSql = fs.readFileSync(path.join(__dirname, '../../../data/tables.sql'), 'utf-8').split(';');
-      const testDataSql = fs.readFileSync(path.join(__dirname, '../../../data/test_data.sql'), 'utf-8').split(';');
+      const testDataSql = fs.readFileSync(path.join(__dirname, '../../../data/sample_data_tiny.sql'), 'utf-8').split(';');
 
-      // Start transaction and execute SQL statements to reset the database and insert test data
+      // Start transaction and execute SQL statements to reset the database and insert sample data
       await promisePool.query('START TRANSACTION');
       for (let i = 0; i < tablesSql.length; i++) {
         const statement = tablesSql[i];
