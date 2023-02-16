@@ -1,5 +1,9 @@
 import random
 
+"""This script generates a volumnous amount of dummy data, used for testing
+the questionnaire system API functionality. The data is written to a file 
+called test_data.sql"""
+
 def create_test_data():
     
     questionnaires = [("QQ" + str(i),"Questionnaire" + str(i), "mask" + str(i)) for i in range(1, 11)]
