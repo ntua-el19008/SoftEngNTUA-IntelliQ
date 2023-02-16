@@ -32,10 +32,11 @@ function submitForm() {
                 },
                 axisY: {
                     title: "Number of answers",
+                    minimum: 0 // Set the minimum value of the y-axis to 0
                 },
                 data: [{
                     type: "column",
-                    dataPoints: dataPoints
+                    dataPoints: dataPoints,
                 }]
             });
             chart.render();
