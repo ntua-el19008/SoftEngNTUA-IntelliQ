@@ -227,13 +227,13 @@ function getSession() {
     .then(data => {
         if (data.hasOwnProperty("error")) {
             if (data["error"] == "No data") {
-                new_session.push("S1");
+                new_session.push("SESH1");
                 submit(new_session[0]);
             }
         }
         else {
-            var count = session.match(/\d*$/);
-            new_session.push(session.substr(0, count.index) + (++count[0]));
+            var count = data["sessionID"].match(/\d*$/);
+            new_session.push(data["sessionID"].substr(0, count.index) + (++count[0]));
             submit(new_session[0]);
         }
     }
