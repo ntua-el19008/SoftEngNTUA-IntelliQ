@@ -68,6 +68,8 @@ const { parse } = require('json2csv');
 
 router.get("/", async (req, res) => {
     try {
+
+        // the query below returns the lexicographically last session ID
         const session_query =
             `SELECT SessionID as sessID
             FROM Participant 
@@ -75,7 +77,6 @@ router.get("/", async (req, res) => {
             DESC
             LIMIT 1;`;
 
-        //ORDER BY sessID DESC
         const [session_result, _fields] = await promisePool.query(session_query);
         if (session_result.length === 0) {
             res.status(402).json({ error: "No data" });
@@ -83,9 +84,14 @@ router.get("/", async (req, res) => {
             return;
         }
 
+        // the above query fails if the 2 last sessionIDs are S79 and S80, where it returns S79
+        // so we resolve this problem
         var sessid = session_result[0].sessID;
         var final_sessid = sessid;
 
+        // if the returned sessionID ends with 9
+        // check if the lexicographically next sessionID exists in the DB
+        // if yes, return that, if not, return the previous sessionID
         if (sessid.endsWith("9")) {
             const match = sessid.match(/(\d+)$/);
             if (match) {

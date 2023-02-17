@@ -33,7 +33,9 @@ const promisePool = pool.promise();
  */
 
 
+// checks if the json file has the required format
 function check(jsonData) {
+    // first check the general questionnaire data
     if (!(
         jsonData.hasOwnProperty('questionnaireID') &&
         typeof jsonData.questionnaireID === 'string' &&
@@ -75,6 +77,9 @@ function check(jsonData) {
                 return false;
             }
         }
+
+        // for each question, check its format and every option it has
+
         for (let i = 0; i < jsonData.questions.length; i++) {
             var question = jsonData.questions[i];
 
@@ -106,6 +111,7 @@ function check(jsonData) {
                 return false;
             }
             else {
+                // for each option of the current question, check the format
                 for (let i = 0; i < question.options.length; i++) {
                     var option = question.options[i];
 
@@ -137,9 +143,11 @@ function check(jsonData) {
     return true;
 }
 
+// creates an array of the query statements, in the correct order to be executed
 function showqueries(jsonstr) {
     var qq = JSON.parse(jsonstr);
 
+    // first, it checks the format and returns false of it is wrong
     var ret = check(qq);
 
     if (ret === false) {
@@ -149,6 +157,7 @@ function showqueries(jsonstr) {
         console.log("good json");
     }
 
+    // creates all the query statements and adds them to an array
     if (qq.mask === undefined) {
         var qq_query = "INSERT INTO Questionnaire (QQID, Title) VALUES ('" + qq.questionnaireID + "', '" + qq.questionnaireTitle + "');";
     }
@@ -200,13 +209,15 @@ router
                 var jsonstr = req.file.buffer.toString();
                 var query_arr = showqueries(jsonstr);
 
+                // if showqueries returned false, return error message
                 if (!query_arr) {
                     res.status(400).json({ status: "failed", error: "Wrong JSON format" });
                     console.log("Wrong JSON format");
                     return;
                 }
-                query_arr = query_arr.flat();
 
+                // flatten the array and execute each query
+                query_arr = query_arr.flat();
                 for (var i = 0; i < query_arr.length; i++) {
                     try {
                         query = query_arr[i];
