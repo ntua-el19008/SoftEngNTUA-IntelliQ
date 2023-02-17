@@ -1,6 +1,7 @@
 var questionCount = 1;
 var optionCount = { 1: 1 };
 
+//adds a new question div, appended to the question conatiner div
 function addQuestion() {
     questionCount++;
     optionCount[questionCount] = 1;
@@ -35,6 +36,7 @@ function addQuestion() {
     questionContainer.appendChild(newQuestion);
 }
 
+// removes the questin div that corresponds to the questionIndex
 function removeQuestion(questionIndex) {
     var questionDiv = document.getElementById(`question${questionIndex}`);
     questionDiv.parentNode.removeChild(questionDiv);
@@ -44,6 +46,7 @@ function removeQuestion(questionIndex) {
     delete optionCount[questionIndex];
 }
 
+// adds option appended to the question div
 function addOption(questionNum) {
     optionCount[questionNum]++;
     var newOption = document.createElement("div");
@@ -61,6 +64,7 @@ function addOption(questionNum) {
     optionsContainer.insertBefore(newOption, optionsContainer.lastChild);
 }
 
+// removes the option
 function removeOption(el, questionNum) {
     var optionIndex = el.parentNode.getAttribute('idx');
     var optionDiv = document.getElementById(`option${optionIndex}`);
@@ -69,6 +73,8 @@ function removeOption(el, questionNum) {
     optionCount[questionNum]--;
 }
 
+// adds the question and option data to a preliminary json object
+// checks if a mandatory field was left empty informs the user
 function parseQuestions() {
     var questions = document.getElementsByTagName("div");
     var questionData = [];

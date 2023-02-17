@@ -1,5 +1,6 @@
 var questionData = JSON.parse(sessionStorage.getItem('questionData'));
 
+// checks if a mandatory field was left empty
 function checkForError() {
     var qqid = document.getElementById("qqid").value;
     var qqtitle = document.getElementById("qqtitle").value;
@@ -12,6 +13,7 @@ function checkForError() {
 
 var keywordCount = 1;
 
+// adds new keyword div, appended to the keyword container div
 function addKeyword() {
     keywordCount++;
 
@@ -30,10 +32,11 @@ function removeKeyword(keywordIndex) {
     var keywordDiv = document.getElementById(`keyword${keywordIndex}`);
     keywordDiv.parentNode.removeChild(keywordDiv);
 
-    // adjust the questionCount
+    // adjust the keywordCount
     keywordCount--;
 }
 
+// checks if the qqmask is of the correct format
 function checkdomain(str) {
     if (str === "") return false;
     if (!(str.match(/^@[a-zA-Z][a-zA-Z0-9]*([.-][a-zA-Z0-9]+)*\.[a-zA-Z0-9]*[a-zA-Z]$/) && str.length <= 63)) {
@@ -44,6 +47,8 @@ function checkdomain(str) {
     }
 }
 
+// parses the questionnaire general data into a json
+// and passes it to the final function, parseAll
 function parseQQdata() {
     if (checkForError()) return;
     var questionnaireID = document.getElementById("qqid").value;
@@ -70,6 +75,7 @@ function parseQQdata() {
     parseAll(data);
 }
 
+// parses all the data into a json and posts it to the endpoint
 function parseAll(qqgenData) {
     qqgenData.questions = [];
 

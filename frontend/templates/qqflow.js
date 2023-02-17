@@ -1,5 +1,7 @@
 var questionData = JSON.parse(sessionStorage.getItem('questionData'));
 
+// create the drop down list for a given option
+// the parameter is the qID of the option
 function createQnextSelect(questionIndex) {
     var qid_arr = [];
 
@@ -23,6 +25,8 @@ function createQnextSelect(questionIndex) {
     return select;
 }
 
+// on window load, show all the questions and options so that the user can specify the flow
+// for each question-option pair, a drop down list appears with all the other qIDs
 function displayQuestions() {
     var qcount = 1;
     var optcount = 1;
@@ -56,16 +60,20 @@ function displayQuestions() {
     }
 }
 
+// submits the data by adding the 
 function submitQnext() {
     let selects = document.getElementsByName("nextqID");
     let answers = [];
 
+    // retrieve the nextqIDs from the drop down lists
     for (let i = 0; i < selects.length; i++) {
         answers.push(selects[i].options[selects[i].selectedIndex].value);
     }
 
+    // add them to the option jsons in the larger preliminary json object
     var cnt = 0;
     for (var i = 0; i < questionData.length; i++) {
+        // the if stmt is to recognize option jsons
         if (questionData[i].qtext === undefined) {
             questionData[i].nextqID = answers[cnt];
             cnt++;
