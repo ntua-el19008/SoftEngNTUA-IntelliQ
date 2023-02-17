@@ -3,14 +3,17 @@ const secondButton = document.getElementById("secondButton");
 
 var questionnaire_result = {};
 
+//this function searches for the questionnaire with the given QQID value
+// and gives the user the optin to select the questionnaire and answer it
 function fetchQuestionnaire(){
     const questionnaireID = document.getElementById("questionnaireID").value;
-    
+    //give a GET request
     fetch(`/intelliq_api/questionnaire/${questionnaireID}`)
         .then(response => response.json())
        // .then(response => console.log(response))
         .then(data => {
             var questionContainer = document.getElementById("card");
+            //if no such questionnaire exist in database
             if (data.hasOwnProperty("error")) {
                alert("The Questionnaire is empty, or doesn't exist. Please give a valid Questionnaire ID.");
                secondButton.style.display = "none";
@@ -19,8 +22,10 @@ function fetchQuestionnaire(){
                questionContainer.replaceChildren(question);
             }
             else {
+                //enable (display) the option to answer the selected questionnaire
                 secondButton.style.display = "block";
                 var title = data["questionnaireTitle"];
+                //change the apperance of page
                 var question = document.createElement("div");
                 question.innerHTML = `
                 <div>
@@ -47,7 +52,7 @@ function fetchQuestionnaire(){
 
 }
 
-//change page and pass questionnaire data
+//change page and pass questionnaire data to the next page
 function answer() {
     var json = JSON.stringify(questionnaire_result);
     sessionStorage.setItem("questionnaireData", json);
